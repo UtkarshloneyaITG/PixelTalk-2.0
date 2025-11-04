@@ -1,9 +1,9 @@
 import SendTo from "./ChatSendTo";
 import SendBy from "./ChatSendBy";
 import ChatInput from "./ChatInput";
+import { useState } from "react";
 import { useEffect } from "react";
 import { socket } from "../services/socket";
-import { useState } from "react";
 
 function ChatWindow() {
   const [messages, setMessages] = useState([]);
@@ -16,7 +16,11 @@ function ChatWindow() {
         return newMessages;
       });
     };
+    // let MYID =
+    //     useEffect(()=>{
+    //       const myuserid = JSON.parse(localStorage.getItem("userid"))
 
+    //     },[])
     socket.on("chat-message", handleMessage);
 
     return () => {
@@ -25,18 +29,19 @@ function ChatWindow() {
   }, []);
   return (
     <>
-      <div className="flex flex-col flex-1 Chat-bg">
+      <div className="flex flex-col flex-1 px-10 pb-5 chat-window">
         <div className="px-6 py-3 font-semibold Chat-Person--placeholder">
           Alen Santos
         </div>
-        <div className="flex-1 p-6 overflow-y-auto space-y-4 Chat--Chat-placeholder">
-          {messages.map((value) => {
+        <div className="p-6 overflow-auto space-y-4 Chat--Chat-placeholder ">
+          {messages.map((value, index) => {
             return value.userID == 1 ? (
               <SendBy
                 text={value.msg}
                 date={value.date}
                 time={value.time}
                 name={value.userID}
+                key={index}
               />
             ) : (
               <SendTo text={value.msg} date={value.date} time={value.time} />

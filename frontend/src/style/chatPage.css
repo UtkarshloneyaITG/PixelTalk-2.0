@@ -1,0 +1,43 @@
+@import "tailwindcss";
+
+.chat-wrapper {
+    background: var(--color-zinc-900);
+}
+
+.msg-input {
+    font-size: 18px;
+    width: 100%;
+    font-family: sans-serif;
+}
+
+.msg-input:focus {
+    outline: none;
+}
+
+.send-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.send-btn:hover svg path {
+    fill: url(#gradient-fill);
+}
+
+.msg-box {
+    background-color: var(--color-zinc-800);
+    box-shadow: 0 0 6px 0.2px #f095337e,
+        0 0 6px 0.3px #e6693cb0,
+        0 0 6px 0.4px #dc2742c0,
+        0 0 6px 0.5px #cc23679d,
+        0 0 6px 0.6px #bc1888a6;
+    ;
+}
+
+.chat-window {
+    background: var(--color-zinc-950);
+}
+.chat-list{
+    background-color: var(--color-zinc-900);
+}
