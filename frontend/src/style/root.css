@@ -1,0 +1,51 @@
+
+@import "tailwindcss";
+
+:root {
+  /* 🎨 Colors */
+  --color-bg-dark: #0b0b0b;
+  --color-bg-card: #1e1e1e;
+  --color-border: #3f3f3f;
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #aaaaaa;
+  --color-input-bg: #111111;
+  --color-placeholder: #a9a9a9;
+
+  /* 🌈 Gradients */
+  --gradient-instagram: linear-gradient(
+    135deg,
+    #f09433 0%,
+    #e6683c 25%,
+    #dc2743 50%,
+    #cc2366 75%,
+    #bc1888 100%
+  );
+
+  /* ✨ Shadows */
+  --shadow-glow: 0px 0px 8px 3px rgba(255, 255, 255, 0.3);
+
+  /* 🔤 Fonts */
+  --font-title: "title-font", cursive;
+  --font-body: "Inter", sans-serif;
+
+  /* 🧭 Misc */
+  --radius-card: 1.5rem;
+  --radius-input: 1rem;
+  --radius-button: 1rem;
+  --transition-fast: 0.3s ease;
+}
+
+/* Import custom font */
+@font-face {
+  font-family: "title-font";
+  src: url("../assets/font/BeautyMountainsPersonalUse-od7z.ttf");
+}
+
+/* Gradient text class */
+.gradient-text {
+  background: var(--gradient-instagram);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-family: var(--font-title);
+}
