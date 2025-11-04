@@ -3,9 +3,9 @@ import React from 'react'
 const ChatArea = () => {
     return (
         <section>
-            <div className="Chats-section">
-                {/* <canvas id="board" width="638" height="800"
-                    style="border:1px solid black; position: absolute;top: 0; right: 0; z-index: 10;  margin-top: 5px;"></canvas> */}
+            <div class="Chats-section">
+                <canvas id="board" width="638" height="800"
+                    style="border:1px solid black; position: absolute;top: 0; right: 0; z-index: 10;  margin-top: 5px;"></canvas>
                 <div id="msg-area">
                 </div>
                 <div className="message-box">
@@ -20,7 +20,7 @@ const ChatArea = () => {
                         </button>
                     </div>
                 </div>
-            </div>
+            </div> 
         </section>
     )
 }

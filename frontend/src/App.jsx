@@ -1,11 +1,13 @@
 import React from "react";
-import Canvas from "./Components/Canvas";
-// import ChatArea from './Components/ChatArea';
+// import ChatArea from "./Components/ChatArea";
+// import MessageBox from "./Components/MessageBox";
+import ChatApp from "./Chat";
 
 const App = () => {
   return (
-    // <ChatArea />
-    <Canvas />
+    <>
+      <ChatApp />
+    </>
   );
 };
 
