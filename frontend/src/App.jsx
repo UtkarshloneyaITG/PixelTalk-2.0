@@ -1,11 +1,12 @@
-import React from "react";
+import React from 'react'
+import ChatArea from './Components/ChatArea';
 
-function App() {
+const App = () => {
   return (
-    <div>
-      <h1>Real-Time Drawing & Chat</h1>
-    </div>
-  );
+    <ChatArea />
+  )
 }
 
 export default App;
+
+
