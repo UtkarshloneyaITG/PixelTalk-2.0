@@ -1,29 +1,39 @@
 import React from "react";
+import '../style/chatPage.css';
 
 function MessageBox() {
-  return (
-    <div>
-      <div class="message-box">
-        <input type="text" placeholder="Message" id="msg" />
-        <div class="send-button">
-          <button class="sendbtn" id="btn">
-            <svg
-              width="100%"
-              height="100%"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M8.11093 4.32915L8.46424 3.66758L8.11093 4.32915ZM17.4348 9.30862L17.0815 9.97019L17.4348 9.30862ZM17.431 14.715L17.7832 15.3771L17.431 14.715ZM8.112 19.6729L7.75973 19.0108H7.75973L8.112 19.6729ZM4.14654 16.046L3.42831 15.83L4.14654 16.046ZM4.14065 7.95083L3.4222 8.16607L4.14065 7.95083ZM8.32953 12.7659C8.74375 12.7659 9.07953 12.4302 9.07953 12.0159C9.07953 11.6017 8.74375 11.2659 8.32953 11.2659V12.7659ZM7.75761 4.99071L17.0815 9.97019L17.7881 8.64706L8.46424 3.66758L7.75761 4.99071ZM17.0787 14.0529L7.75973 19.0108L8.46426 20.3351L17.7832 15.3771L17.0787 14.0529ZM4.86476 16.262L6.07675 12.2319L4.64031 11.7999L3.42831 15.83L4.86476 16.262ZM6.07698 11.8007L4.8591 7.73559L3.4222 8.16607L4.64008 12.2312L6.07698 11.8007ZM5.35853 12.7659H8.32953V11.2659H5.35853V12.7659ZM7.75973 19.0108C6.95053 19.4413 6.10735 19.2587 5.50636 18.7091C4.90044 18.1549 4.56934 17.2443 4.86476 16.262L3.42831 15.83C2.95775 17.3947 3.48692 18.8948 4.494 19.8159C5.50601 20.7415 7.02855 21.0989 8.46426 20.3351L7.75973 19.0108ZM17.0815 9.97019C18.6409 10.803 18.639 13.2228 17.0787 14.0529L17.7832 15.3771C20.4035 13.9831 20.4061 10.0452 17.7881 8.64706L17.0815 9.97019ZM8.46424 3.66758C7.02937 2.90128 5.50602 3.25644 4.49263 4.18085C3.48418 5.10076 2.95316 6.60051 3.4222 8.16607L4.8591 7.73559C4.56462 6.75266 4.89688 5.84243 5.50352 5.28905C6.10522 4.74018 6.94877 4.55875 7.75761 4.99071L8.46424 3.66758Z"
-                fill="#ffffff"
-              />
-            </svg>
-          </button>
+    return (
+        <div className="px-3 absolute bottom-5 w-full">
+            <div className="msg-box text-white rounded-3xl flex pl-5 flex justify-center items-center">
+                <input type="text" placeholder="Message" className="msg-input" />
+                <div className="msg-button">
+                    <button className="send-btn cursor-pointer mt-2">
+                        <button class="send-btn">
+                            <svg class="send-svg" width="80px" height="80px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <defs>
+                                    <linearGradient id="gradient-fill" x1="0%" y1="0%" x2="100%" y2="0%">
+                                        <stop offset="0%" stop-color="#00BFFF">
+                                            <animate attributeName="stop-color" values="#00BFFF;#1E90FF;#00BFFF" dur="2s" repeatCount="indefinite" />
+                                        </stop>
+                                        <stop offset="100%" stop-color="#1E90FF">
+                                            <animate attributeName="stop-color" values="#1E90FF;#00FFCC;#1E90FF" dur="2s" repeatCount="indefinite" />
+                                        </stop>
+                                    </linearGradient>
+                                </defs>
+                                <path
+                                    d="M6.99811 10.2467L7.43298 11.0077C7.70983 11.4922 7.84825 11.7344 7.84825 12C7.84825 12.2656 7.70983 12.5078 7.43299 12.9923L7.43298 12.9923L6.99811 13.7533C5.75981 15.9203 5.14066 17.0039 5.62348 17.5412C6.1063 18.0785 7.24961 17.5783 9.53623 16.5779L15.8119 13.8323C17.6074 13.0468 18.5051 12.654 18.5051 12C18.5051 11.346 17.6074 10.9532 15.8119 10.1677L9.53624 7.4221C7.24962 6.42171 6.1063 5.92151 5.62348 6.45883C5.14066 6.99615 5.75981 8.07966 6.99811 10.2467Z"
+                                    fill="#ffffff"
+                                />
+                            </svg>
+
+                        </button>
+
+
+                    </button>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  );
+    );
 }
 
 export default MessageBox;
