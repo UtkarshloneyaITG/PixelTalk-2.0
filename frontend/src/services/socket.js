@@ -1,156 +1,161 @@
-const socket = io("192.168.10.69:3000");
-const colorpicker = document.getElementById("color-picker");
-const canvas = document.getElementById("board");
-const ctx = canvas.getContext("2d");
-const colorpicker_by_user = document.querySelector(".color-picker-user");
-let drawing = false;
-let BrushColor = "black";
-const colorPlates = ["red", "blue", "green", "yellow", "black"];
+// const socket = io("192.168.10.69:3000");
+// const colorpicker = document.getElementById("color-picker");
+// const canvas = document.getElementById("board");
+// const ctx = canvas.getContext("2d");
+// const colorpicker_by_user = document.querySelector(".color-picker-user");
+// let drawing = false;
+// let BrushColor = "black";
+// const colorPlates = ["red", "blue", "green", "yellow", "black"];
 
-Notification.requestPermission().then((permission) => {
-  console.log("Permission:", permission);
-});
-function showNotification(title, options) {
-  if (Notification.permission === "granted") {
-    const notification = new Notification(title, options);
+import { io } from "socket.io-client";
 
-    // Optional: add click behavior
-    notification.onclick = () => {
-      window.focus();
-      notification.close();
-    };
-  }
-}
-canvas.addEventListener("mousedown", (e) => {
-  drawing = true;
-  ctx.beginPath();
-  ctx.moveTo(e.offsetX, e.offsetY);
-  socket.emit("start", { x: e.offsetX, y: e.offsetY });
-});
-canvas.addEventListener("mouseleave", () => (drawing = false));
-canvas.addEventListener("mouseup", () => (drawing = false));
-canvas.addEventListener("mousemove", (e) => {
-  if (!drawing) return;
+// Connect to your backend
+export const socket = io("http://192.168.10.69:3000"); // replace with your backend IP
 
-  const pos = { x: e.offsetX, y: e.offsetY, color: BrushColor };
+// Notification.requestPermission().then((permission) => {
+//   console.log("Permission:", permission);
+// });
+// function showNotification(title, options) {
+//   if (Notification.permission === "granted") {
+//     const notification = new Notification(title, options);
 
-  ctx.lineTo(pos.x, pos.y);
-  ctx.strokeStyle = BrushColor;
-  ctx.stroke();
+//     // Optional: add click behavior
+//     notification.onclick = () => {
+//       window.focus();
+//       notification.close();
+//     };
+//   }
+// }
+// canvas.addEventListener("mousedown", (e) => {
+//   drawing = true;
+//   ctx.beginPath();
+//   ctx.moveTo(e.offsetX, e.offsetY);
+//   socket.emit("start", { x: e.offsetX, y: e.offsetY });
+// });
+// canvas.addEventListener("mouseleave", () => (drawing = false));
+// canvas.addEventListener("mouseup", () => (drawing = false));
+// canvas.addEventListener("mousemove", (e) => {
+//   if (!drawing) return;
 
-  // apne drawing point dusre users ko bhejo
-  socket.emit("draw", pos);
-});
+//   const pos = { x: e.offsetX, y: e.offsetY, color: BrushColor };
 
-// dusre users ki drawing receive karo
-socket.on("draw", (pos) => {
-  ctx.lineTo(pos.x, pos.y);
-  ctx.strokeStyle = pos.color;
-  ctx.stroke();
-});
-socket.on("start", (pos) => {
-  ctx.beginPath();
-  ctx.moveTo(pos.x, pos.y);
-});
-socket.on("cleared", () => {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-});
-async function clearBoard() {
-  socket.emit("clear");
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-}
-colorPlateGenerate();
-function colorPlateGenerate() {
-  colorpicker.innerHTML = "";
+//   ctx.lineTo(pos.x, pos.y);
+//   ctx.strokeStyle = BrushColor;
+//   ctx.stroke();
 
-  colorPlates.forEach((value, index) => {
-    let div = document.createElement("div");
-    div.style.backgroundColor = `${value}`;
-    div.style.border = "2px solid white";
-    div.addEventListener("click", (e) => {
-      colorPlates.forEach((value, index) => {
-        colorpicker.getElementsByTagName("div")[index].style.border =
-          "2px solid white";
-      });
-      e.target.style.border = "2px solid black";
-      BrushColor = e.target.style.backgroundColor;
-    });
-    colorpicker.appendChild(div);
-    if (colorPlates.length - 1 == index) {
-      div.click();
-    }
-  });
-}
+//   // apne drawing point dusre users ko bhejo
+//   socket.emit("draw", pos);
+// });
 
-function addColor() {
-  const color = colorpicker_by_user.value;
-  colorPlates.push(color);
-  colorPlateGenerate();
-}
+// // dusre users ki drawing receive karo
+// socket.on("draw", (pos) => {
+//   ctx.lineTo(pos.x, pos.y);
+//   ctx.strokeStyle = pos.color;
+//   ctx.stroke();
+// });
+// socket.on("start", (pos) => {
+//   ctx.beginPath();
+//   ctx.moveTo(pos.x, pos.y);
+// });
+// socket.on("cleared", () => {
+//   ctx.clearRect(0, 0, canvas.width, canvas.height);
+// });
+// async function clearBoard() {
+//   socket.emit("clear");
+//   ctx.clearRect(0, 0, canvas.width, canvas.height);
+// }
+// colorPlateGenerate();
+// function colorPlateGenerate() {
+//   colorpicker.innerHTML = "";
 
-const sendBtn = document.getElementById("btn");
-const message = document.getElementById("msg");
-const renderBox = document.getElementById("msg-area");
-sendBtn.addEventListener("click", () => {
-  const msg = message.value.trim();
-  if (!msg) return;
-  const msgBox = document.createElement("div");
-  msgBox.innerHTML = `
-    <div class="msg-div self">
-      <div class="user-msg">
-      ${msg}
-      </div>
-    </div>
-  `;
-  renderBox.appendChild(msgBox);
-  socket.emit("chat-message", msg);
-  message.value = "";
-});
+//   colorPlates.forEach((value, index) => {
+//     let div = document.createElement("div");
+//     div.style.backgroundColor = `${value}`;
+//     div.style.border = "2px solid white";
+//     div.addEventListener("click", (e) => {
+//       colorPlates.forEach((value, index) => {
+//         colorpicker.getElementsByTagName("div")[index].style.border =
+//           "2px solid white";
+//       });
+//       e.target.style.border = "2px solid black";
+//       BrushColor = e.target.style.backgroundColor;
+//     });
+//     colorpicker.appendChild(div);
+//     if (colorPlates.length - 1 == index) {
+//       div.click();
+//     }
+//   });
+// }
 
-window.addEventListener("keydown", (e) => {
-  if (e.code == "Enter") sendBtn.click();
-});
-socket.on("chat-message", (msg) => {
-  const msgBox = document.createElement("div");
-  msgBox.innerHTML = `
-    <div class="msg-div self sender">
-      <div class="user-msg">
-      ${msg}
-      </div>
-    </div>
-  `;
+// function addColor() {
+//   const color = colorpicker_by_user.value;
+//   colorPlates.push(color);
+//   colorPlateGenerate();
+// }
 
-  if (window.document.hidden) {
-    showNotification("New Message", { body: msg });
-  }
-  console.log(window.document.hidden);
-  renderBox.appendChild(msgBox);
-});
-colorPlateGenerate();
-function colorPlateGenerate() {
-  colorpicker.innerHTML = "";
+// const sendBtn = document.getElementById("btn");
+// const message = document.getElementById("msg");
+// const renderBox = document.getElementById("msg-area");
+// sendBtn.addEventListener("click", () => {
+//   const msg = message.value.trim();
+//   if (!msg) return;
+//   const msgBox = document.createElement("div");
+//   msgBox.innerHTML = `
+//     <div class="msg-div self">
+//       <div class="user-msg">
+//       ${msg}
+//       </div>
+//     </div>
+//   `;
+//   renderBox.appendChild(msgBox);
+//   socket.emit("chat-message", { msg: msg, userID: 1 });
+//   message.value = "";
+// });
 
-  colorPlates.forEach((value, index) => {
-    let div = document.createElement("div");
-    div.style.backgroundColor = `${value}`;
-    div.style.border = "2px solid white";
-    div.addEventListener("click", (e) => {
-      colorPlates.forEach((value, index) => {
-        colorpicker.getElementsByTagName("div")[index].style.border =
-          "2px solid white";
-      });
-      e.target.style.border = "2px solid black";
-      BrushColor = e.target.style.backgroundColor;
-    });
-    colorpicker.appendChild(div);
-    if (colorPlates.length - 1 == index) {
-      div.click();
-    }
-  });
-}
+// window.addEventListener("keydown", (e) => {
+//   if (e.code == "Enter") sendBtn.click();
+// });
+// socket.on("chat-message", (msg) => {
+//   const msgBox = document.createElement("div");
+//   msgBox.innerHTML = `
+//     <div class="msg-div self sender">
+//       <div class="user-msg">
+//       ${msg.msg}
+//       </div>
+//     </div>
+//   `;
 
-function addColor() {
-  const color = colorpicker_by_user.value;
-  colorPlates.push(color);
-  colorPlateGenerate();
-}
+//   if (window.document.hidden) {
+//     showNotification("New Message", { body: msg });
+//   }
+//   console.log(window.document.hidden);
+//   renderBox.appendChild(msgBox);
+// });
+// colorPlateGenerate();
+// function colorPlateGenerate() {
+//   colorpicker.innerHTML = "";
+
+//   colorPlates.forEach((value, index) => {
+//     let div = document.createElement("div");
+//     div.style.backgroundColor = `${value}`;
+//     div.style.border = "2px solid white";
+//     div.addEventListener("click", (e) => {
+//       colorPlates.forEach((value, index) => {
+//         colorpicker.getElementsByTagName("div")[index].style.border =
+//           "2px solid white";
+//       });
+//       e.target.style.border = "2px solid black";
+//       BrushColor = e.target.style.backgroundColor;
+//     });
+//     colorpicker.appendChild(div);
+//     if (colorPlates.length - 1 == index) {
+//       div.click();
+//     }
+//   });
+// }
+
+// function addColor() {
+//   const color = colorpicker_by_user.value;
+//   colorPlates.push(color);
+//   colorPlateGenerate();
+// }
