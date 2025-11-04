@@ -119,9 +119,11 @@ socket.on("chat-message", (msg) => {
       </div>
     </div>
   `;
-   if (document.hidden) {
+
+  if (window.document.hidden) {
     showNotification("New Message", { body: msg });
   }
+  console.log(window.document.hidden);
   renderBox.appendChild(msgBox);
 });
 colorPlateGenerate();

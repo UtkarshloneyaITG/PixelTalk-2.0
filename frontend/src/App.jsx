@@ -1,12 +1,14 @@
-import React from 'react'
-import ChatArea from './Components/ChatArea';
+import React from "react";
+// import ChatArea from "./Components/ChatArea";
+// import MessageBox from "./Components/MessageBox";
+import ChatApp from "./Chat";
 
 const App = () => {
   return (
-    <ChatArea />
-  )
-}
+    <>
+      <ChatApp />
+    </>
+  );
+};
 
 export default App;
-
-
