@@ -1,20 +1,48 @@
-import '../style/chatPage.css';
+import "../style/chatPage.css";
 
 function ChatInput() {
   return (
     <>
       <div className=" md:w-[80%] sm:w-[100%] self-center msg-box text-white rounded-3xl flex pl-5 flex justify-center items-center">
-        <input type="text" placeholder="Message" className="msg-input" />
+        <input
+          type="text"
+          placeholder="Message"
+          className="msg-input"
+          // value={"sdf"}
+        />
         <div className="msg-button -mb-2">
           <button className="send-btn -mb-5">
-            <svg class="send-svg" width="80px" height="80px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg
+              class="send-svg"
+              width="80px"
+              height="80px"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
               <defs>
-                <linearGradient id="gradient-fill" x1="0%" y1="0%" x2="100%" y2="0%">
+                <linearGradient
+                  id="gradient-fill"
+                  x1="0%"
+                  y1="0%"
+                  x2="100%"
+                  y2="0%"
+                >
                   <stop offset="0%" stop-color="#00BFFF">
-                    <animate attributeName="stop-color" values="#00BFFF;#1E90FF;#00BFFF" dur="2s" repeatCount="indefinite" />
+                    <animate
+                      attributeName="stop-color"
+                      values="#00BFFF;#1E90FF;#00BFFF"
+                      dur="2s"
+                      repeatCount="indefinite"
+                    />
                   </stop>
                   <stop offset="100%" stop-color="#1E90FF">
-                    <animate attributeName="stop-color" values="#1E90FF;#00FFCC;#1E90FF" dur="2s" repeatCount="indefinite" />
+                    <animate
+                      attributeName="stop-color"
+                      values="#1E90FF;#00FFCC;#1E90FF"
+                      dur="2s"
+                      repeatCount="indefinite"
+                    />
                   </stop>
                 </linearGradient>
               </defs>
@@ -23,7 +51,6 @@ function ChatInput() {
                 fill="#919191"
               />
             </svg>
-
           </button>
         </div>
       </div>

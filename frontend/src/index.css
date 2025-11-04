@@ -17,7 +17,14 @@
 
 .Chat--Chat-placeholder {
   backdrop-filter: blur(5px);
-  overflow: hidden;
+  overflow: auto;
+  height: 370px;
+  display: flex;
+  flex-direction: column;
+}
+
+.Chat--Chat-placeholder::-webkit-scrollbar {
+  display: none;
 }
 
 .Chat--chat-input {
