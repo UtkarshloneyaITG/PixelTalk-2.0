@@ -1,12 +1,12 @@
-import React from 'react'
-import ChatArea from './Components/ChatArea';
+import React from "react";
+import Canvas from "./Components/Canvas";
+// import ChatArea from './Components/ChatArea';
 
 const App = () => {
   return (
-    <ChatArea />
-  )
-}
+    // <ChatArea />
+    <Canvas />
+  );
+};
 
 export default App;
-
-
