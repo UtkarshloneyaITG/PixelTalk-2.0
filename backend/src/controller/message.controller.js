@@ -6,8 +6,9 @@ const chatJSON = path.join("C:/Users/Itgeeks/Desktop/ChatData/chat.json");
 const messageController = async (socket, io, msg) => {
   try {
     const MSG = new messageOBJECT(msg.msg, msg.userID);
-    socket.broadcast.emit("chat-message", MSG);
-    
+  
+    await socket.broadcast.emit("chat-message", MSG);
+
     let fileData = [];
 
     if (fs.existsSync(chatJSON)) {

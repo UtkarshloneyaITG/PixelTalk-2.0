@@ -1,6 +1,13 @@
+import { useState } from "react";
+import { socket } from "../services/socket";
 import "../style/chatPage.css";
 
 function ChatInput() {
+  const [send, setsend] = useState({ msg: "", userID: "" });
+  const sendMessage = () => {
+    socket.emit("chat-message", send);
+    setsend({ msg: "", userID: "" });
+  };
   return (
     <>
       <div className=" md:w-[80%] sm:w-[100%] self-center msg-box text-white rounded-3xl flex pl-5 flex justify-center items-center">
@@ -8,10 +15,18 @@ function ChatInput() {
           type="text"
           placeholder="Message"
           className="msg-input"
-          // value={"sdf"}
+          onInput={(e) => {
+            setsend({ msg: e.target.value, userID: 1 });
+          }}
+          value={send.msg}
         />
         <div className="msg-button -mb-2">
-          <button className="send-btn -mb-5">
+          <button
+            className="send-btn -mb-5"
+            onClick={() => {
+              sendMessage(send);
+            }}
+          >
             <svg
               class="send-svg"
               width="80px"
