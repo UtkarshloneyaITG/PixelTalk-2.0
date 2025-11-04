@@ -6,6 +6,21 @@ const colorpicker_by_user = document.querySelector(".color-picker-user");
 let drawing = false;
 let BrushColor = "black";
 const colorPlates = ["red", "blue", "green", "yellow", "black"];
+
+Notification.requestPermission().then((permission) => {
+  console.log("Permission:", permission);
+});
+function showNotification(title, options) {
+  if (Notification.permission === "granted") {
+    const notification = new Notification(title, options);
+
+    // Optional: add click behavior
+    notification.onclick = () => {
+      window.focus();
+      notification.close();
+    };
+  }
+}
 canvas.addEventListener("mousedown", (e) => {
   drawing = true;
   ctx.beginPath();
@@ -104,6 +119,11 @@ socket.on("chat-message", (msg) => {
       </div>
     </div>
   `;
+
+  if (window.document.hidden) {
+    showNotification("New Message", { body: msg });
+  }
+  console.log(window.document.hidden);
   renderBox.appendChild(msgBox);
 });
 colorPlateGenerate();
