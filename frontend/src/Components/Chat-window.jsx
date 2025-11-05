@@ -4,17 +4,23 @@ import ChatInput from "./ChatInput";
 import { useRef, useState } from "react";
 import { useEffect } from "react";
 import { socket } from "../services/socket";
+import { useMsgFunctions } from "../provider/msgContext";
 
 function ChatWindow() {
+  const { send, sendMessage } = useMsgFunctions();
+
   const [messages, setMessages] = useState([]);
+
+  console.log(messages);
+
   const chatLogs = useRef(null);
+  
   useEffect(() => {
-    //3️⃣ bring the last item into view
     chatLogs.current?.lastElementChild?.scrollIntoView();
   }, [messages]);
+
   useEffect(() => {
     const handleMessage = (msg) => {
-      // Ignore messages already in list (simple duplicate prevention)
       setMessages((prev) => {
         let exists = JSON.stringify(prev) == JSON.stringify(msg);
         if (exists) return prev;
@@ -22,9 +28,11 @@ function ChatWindow() {
       });
     };
 
+    console.log;
+
     socket.on("chat-message", handleMessage);
     return () => socket.off("chat-message", handleMessage);
-  }, []);
+  }, [send, sendMessage, messages , setMessages]);
 
   return (
     <>
