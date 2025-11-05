@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import ChatAppBody from "./Components/ChatAppBody";
-import ChatAppHeader from "./Components/ChatAppHeader";
 
 function ChatApp() {
   useEffect(() => {
