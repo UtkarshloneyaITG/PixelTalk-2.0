@@ -6,40 +6,54 @@ function SendBy({ text, date, time, name, image }) {
   const el = useRef(null);
 
   useGSAP(() => {
-    const tl = gsap.timeline({ defaults: { ease: "back.out(1.7)" } });
+    const animate = () => {
+      const tl = gsap.timeline({ defaults: { ease: "back.out(1.7)" } });
 
-    tl.from(el.current, {
-      x: -100,
-      opacity: 0,
-      scaleX: 0.8,
-      scaleY: 1.2,
-      duration: 0.2,
-    })
-      // 2️⃣ Quick settle bounce
-      .to(el.current, {
-        scaleX: 1.1,
-        scaleY: 0.9,
-        duration: 0.5,
-        ease: "power1.inOut",
-      })
-      .to(el.current, {
-        scaleX: 1,
-        scaleY: 1,
-        duration: 0.2,
-        ease: "elastic.out(1, 0.5)",
-      })
-      // 3️⃣ Flash effect
-      .fromTo(
+      tl.fromTo(
         el.current,
-        { boxShadow: "0 0 0px rgba(255,255,255,0.8)" },
-        {
-          boxShadow: "0 0 10px rgba(255,255,255,0.8)",
+        { x: -100, opacity: 0, scaleX: 0.8, scaleY: 1.2 },
+        { x: 0, opacity: 1, scaleX: 1, scaleY: 1, duration: 0.4 }
+      )
+        .to(el.current, {
+          scaleX: 1.1,
+          scaleY: 0.9,
           duration: 0.3,
-          yoyo: true,
-          repeat: 1,
           ease: "power1.inOut",
+        })
+        .to(el.current, {
+          scaleX: 1,
+          scaleY: 1,
+          duration: 0.3,
+          ease: "elastic.out(1, 0.5)",
+        })
+        .fromTo(
+          el.current,
+          { boxShadow: "0 0 0px rgba(255,255,255,0.8)" },
+          {
+            boxShadow: "0 0 10px rgba(255,255,255,0.8)",
+            duration: 0.3,
+            yoyo: true,
+            repeat: 1,
+            ease: "power1.inOut",
+          }
+        );
+    };
+
+    // 👇 run only when tab visible or wait until visible
+    if (!document.hidden) {
+      animate();
+    } else {
+      const handleVisibilityChange = () => {
+        if (!document.hidden) {
+          animate();
+          document.removeEventListener(
+            "visibilitychange",
+            handleVisibilityChange
+          );
         }
-      );
+      };
+      document.addEventListener("visibilitychange", handleVisibilityChange);
+    }
   }, []);
 
   return (
@@ -55,7 +69,7 @@ function SendBy({ text, date, time, name, image }) {
         transformOrigin: "bottom left",
       }}
     >
-      {image != null ? (
+      {image && (
         <img
           src={image}
           style={{
@@ -63,9 +77,7 @@ function SendBy({ text, date, time, name, image }) {
             marginBottom: "5px",
             borderRadius: "10px",
           }}
-        ></img>
-      ) : (
-        ""
+        />
       )}
       {text}
     </div>
