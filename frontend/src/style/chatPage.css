@@ -8,6 +8,7 @@
     font-size: 18px;
     width: 100%;
     font-family: sans-serif;
+    height: 74px;
 }
 
 .msg-input:focus {
@@ -131,7 +132,7 @@
 
 .ChatSendTo-- {
     color: white;
-    border: 1px solid rgb(9, 69, 126);
+    border: 1px solid rgb(106, 183, 255);
     padding: 5px 15px;
     border-radius: 20px;
     animation: ChatSendTo-tranformation 0.4s ease-out;
