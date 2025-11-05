@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { socket } from "../services/socket";
 import "../style/chatPage.css";
 
@@ -8,6 +8,20 @@ function ChatInput() {
     socket.emit("chat-message", send);
     setsend({ msg: "", userID: "" });
   };
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "Enter") {
+        sendMessage();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    // cleanup on unmount
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [send]);
   return (
     <>
       <div className=" md:w-[80%] sm:w-[100%] self-center msg-box text-white rounded-3xl flex pl-5 flex justify-center items-center">

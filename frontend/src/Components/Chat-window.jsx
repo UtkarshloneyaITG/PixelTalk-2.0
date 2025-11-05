@@ -59,7 +59,12 @@ function ChatWindow() {
                   key={index}
                 />
               ) : (
-                <SendTo text={value.msg} date={value.date} time={value.time} />
+                <SendTo
+                  text={value.msg}
+                  date={value.date}
+                  time={value.time}
+                  key={index}
+                />
               );
             })}
           </div>
