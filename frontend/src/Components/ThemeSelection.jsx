@@ -29,6 +29,7 @@ const ThemeSelection = ({ onClose }) => {
       chatBody.style.backgroundSize = "cover";
       chatBody.style.backgroundPosition = "center";
       chatBody.style.backgroundRepeat = "no-repeat";
+      handleCancel();
     } else {
       console.warn("⚠️ No theme selected or .chat-body not found!");
     }
@@ -72,14 +73,14 @@ const ThemeSelection = ({ onClose }) => {
         <div className="flex justify-center gap-6 mt-10">
           <button
             onClick={handleCancel}
-            className="px-6 py-2 bg-zinc-700 hover:bg-zinc-600 text-gray-300 rounded-lg transition"
+            className="px-6 py-2 bg-zinc-700 hover:bg-zinc-600 text-gray-300 rounded-lg transition cursor-pointer"
           >
             Cancel
           </button>
           <button
             onClick={handleApply}
             disabled={!selectedTheme}
-            className={`px-6 py-2 rounded-lg text-white transition ${
+            className={`px-6 py-2 rounded-lg text-white transition cursor-pointer ${
               selectedTheme
                 ? "bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600"
                 : "bg-gray-600 cursor-not-allowed"
