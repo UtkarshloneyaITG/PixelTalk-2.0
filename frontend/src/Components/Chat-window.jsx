@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import { socket } from "../services/socket";
 import ChatAppHeader from "./ChatAppHeader";
 import { useMsgFunctions } from "../provider/msgContext";
-
+import pixel_talk from "../assets/svg/Pixel Talk Favicon(full).png";
 function ChatWindow() {
   const { send, sendMessage } = useMsgFunctions();
 
@@ -18,6 +18,18 @@ function ChatWindow() {
 
   useEffect(() => {
     chatLogs.current?.lastElementChild?.scrollIntoView();
+    if (
+      document.hidden &&
+      Notification.permission === "granted" &&
+      messages[messages.length - 1].userID != "Gamith"
+    ) {
+      new Notification("New Message", {
+        body: `${messages[messages.length - 1].userID}: ${
+          messages[messages.length - 1].msg
+        }`,
+        icon: pixel_talk, // optional, use your app icon
+      });
+    }
   }, [messages]);
   useEffect(() => {
     const handleMessage = (msg) => {
@@ -31,11 +43,9 @@ function ChatWindow() {
         return [...prev, msg];
       });
     };
-
     socket.on("chat-message", handleMessage);
     return () => socket.off("chat-message", handleMessage);
   }, []);
-
   return (
     <>
       <div className=" relative flex flex-col flex-1 px-10 pb-5 chat-window justify-end ">
