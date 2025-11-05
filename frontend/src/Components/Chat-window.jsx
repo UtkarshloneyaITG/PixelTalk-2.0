@@ -4,6 +4,7 @@ import ChatInput from "./ChatInput";
 import { useRef, useState } from "react";
 import { useEffect } from "react";
 import { socket } from "../services/socket";
+import ChatAppHeader from "./ChatAppHeader";
 
 function ChatWindow() {
   const [messages, setMessages] = useState([]);
@@ -30,15 +31,7 @@ function ChatWindow() {
     <>
       <div className=" relative flex flex-col flex-1 px-10 pb-5 chat-window justify-end ">
         <div className="chat-wrapper w-full">
-          <div className="flex items-center justify-between px-5">
-            <div className="profile flex items-center">
-              <div className="profile-image"></div>
-              <div className="px-3 py-8  Chat-Person--placeholder text-2xl">
-                User
-              </div>
-            </div>
-            <div className="extra flex">●●●</div>
-          </div>
+          <ChatAppHeader />
           <div
             className="p-6 overflow-auto space-y-4 Chat--Chat-placeholder h-screen fade-messages"
             ref={chatLogs}

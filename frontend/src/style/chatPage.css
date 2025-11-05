@@ -35,6 +35,8 @@
     ;
     position: absolute;
     bottom: 25px;
+    width: 80%;
+    border-radius: 25px;
 }
 
 .chat-window {
@@ -44,7 +46,7 @@
 .chat-list {
     background-color: var(--color-zinc-950);
     width: 27%;
-    padding: 10px 15px;
+    padding: 15px 15px;
 }
 
 .chat-panel {
@@ -78,12 +80,9 @@
 }
 
 .add-btn:hover {
-    box-shadow: 0 0 6px 0.2px #f095337e,
-        0 0 6px 0.3px #e6693cb0,
-        0 0 6px 0.4px #dc2742c0,
-        0 0 6px 0.5px #cc23679d,
-        0 0 6px 0.6px #bc1888a6;
-    ;
+    box-shadow: 0 0 6px 0.3px #fcb045,
+        0 0 6px 0.7px #fd1d1d,
+        0 0 6px 1px #833ab4;
 }
 
 .fade-messages {
@@ -164,7 +163,7 @@
     }
 
     .Chat--Chat-placeholder {
-        height:500px;
+        height: 500px;
     }
 
     .chat-window {
