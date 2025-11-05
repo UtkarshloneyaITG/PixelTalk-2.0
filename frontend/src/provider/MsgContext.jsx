@@ -4,16 +4,20 @@ import { socket } from "../services/socket";
 const MsgContext = createContext();
 
 export const MsgContextProvider = ({ children }) => {
-  const [send, setsend] = useState({ msg: "", userID: "2" });
+  const [image, setimage] = useState(null);
+  const [send, setsend] = useState({ msg: "", userID: "2", image: null });
   const sendMessage = () => {
-    socket.emit("chat-message", send);
-    setsend({ msg: "", userID: "" });
+    if (send.msg.trim() !== "" || image != null) {
+      socket.emit("chat-message", send);
+      setimage(null);
+      setsend({ msg: "", userID: "", image: null });
+    }
   };
 
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === "Enter") {
-        if (send.msg.trim() !== "") {
+        if (send.msg.trim() !== "" || image != null) {
           sendMessage();
         }
       }
@@ -28,7 +32,9 @@ export const MsgContextProvider = ({ children }) => {
   }, [send]);
 
   return (
-    <MsgContext.Provider value={{ send, setsend, sendMessage }}>
+    <MsgContext.Provider
+      value={{ send, setsend, sendMessage, image, setimage }}
+    >
       {children}
     </MsgContext.Provider>
   );

@@ -62,6 +62,7 @@ function ChatWindow() {
                   date={value.date}
                   time={value.time}
                   name={value.userID}
+                  image={value.image}
                   key={index}
                 />
               ) : (
@@ -69,6 +70,7 @@ function ChatWindow() {
                   text={value.msg}
                   date={value.date}
                   time={value.time}
+                  image={value.image}
                   key={index}
                 />
               );
