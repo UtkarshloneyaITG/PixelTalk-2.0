@@ -1,10 +1,13 @@
 import { useRef, useEffect, useState } from "react";
 import gsap from "gsap";
 import ThemeSelection from "./ThemeSelection";
+import { useMsgFunctions } from "../provider/msgContext";
 
 function Sidebar({ isOpen, closeSidebar }) {
   const sidebarRef = useRef(null);
-  const [isThemeOpen, setIsThemeOpen] = useState(false);
+
+  const {isThemeOpen , setIsThemeOpen} = useMsgFunctions();
+  
 
   useEffect(() => {
     const sidebar = sidebarRef.current;
@@ -174,7 +177,7 @@ function Sidebar({ isOpen, closeSidebar }) {
       </aside>
 
       {/* ✅ Theme Modal (conditionally rendered) */}
-      {isThemeOpen && <ThemeSelection onClose={() => setIsThemeOpen(false)} />}
+      {isThemeOpen && <ThemeSelection/>}
     </>
   );
 }
