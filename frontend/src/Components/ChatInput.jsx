@@ -6,7 +6,7 @@ function ChatInput() {
 
   return (
     <>
-      <div className=" md:w-[80%] sm:w-[100%] self-center msg-box text-white rounded-3xl flex pl-5 flex justify-center items-center">
+      <div className=" md:w-[80%] sm:w-[100%] self-center msg-box text-white rounded-3xl flex pl-5  justify-center items-center">
         <input
           type="text"
           placeholder="Message"
@@ -24,7 +24,7 @@ function ChatInput() {
             }}
           >
             <svg
-              className="send-svg -mr-3"
+              className="send-svg"
               width="80px"
               height="80px"
               viewBox="0 0 24 24"
