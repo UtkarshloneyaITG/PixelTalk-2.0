@@ -2,7 +2,7 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { useRef } from "react";
 
-function SendBy({ text, date, time, name }) {
+function SendBy({ text, date, time, name, image }) {
   const el = useRef(null);
 
   useGSAP(() => {
@@ -55,6 +55,18 @@ function SendBy({ text, date, time, name }) {
         transformOrigin: "bottom left",
       }}
     >
+      {image != null ? (
+        <img
+          src={image}
+          style={{
+            maxWidth: "300px",
+            marginBottom: "5px",
+            borderRadius: "10px",
+          }}
+        ></img>
+      ) : (
+        ""
+      )}
       {text}
     </div>
   );

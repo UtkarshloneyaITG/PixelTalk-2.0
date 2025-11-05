@@ -15,11 +15,12 @@ let timeform = () => {
 };
 
 class messageOBJECT {
-  constructor(msg, userID) {
+  constructor(msg, userID, image) {
     this.msg = msg;
     this.date = datefor();
     this.time = timeform();
     this.userID = userID;
+    this.image = image;
   }
 }
 

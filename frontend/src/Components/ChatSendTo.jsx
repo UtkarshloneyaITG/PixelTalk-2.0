@@ -2,7 +2,7 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { useRef, useEffect } from "react";
 
-function SendTo({ text }) {
+function SendTo({ text, image }) {
   const el = useRef(null);
 
   useGSAP(() => {
@@ -60,6 +60,18 @@ function SendTo({ text }) {
       className="ChatSendTo-- text-white ml-auto"
       style={{ padding: "10px 18px", opacity: 1 }}
     >
+      {image != null ? (
+        <img
+          src={image}
+          style={{
+            maxWidth: "300px",
+            marginBottom: "5px",
+            borderRadius: "10px",
+          }}
+        ></img>
+      ) : (
+        ""
+      )}
       {text}
     </div>
   );

@@ -176,6 +176,13 @@
     font-family: var(--font-title);
 }
 
+.image_icon {
+    height: 60px;
+    width: 60px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+}
+
 @media (max-width:768px) {
     .chat-list {
         display: none;

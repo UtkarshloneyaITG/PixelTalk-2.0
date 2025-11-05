@@ -6,7 +6,7 @@ import { socket } from "../services/socket";
 import ChatAppHeader from "./ChatAppHeader";
 import { useMsgFunctions } from "../provider/msgContext";
 import pixel_talk from "../assets/svg/Pixel Talk(full).png";
-import ThemeSelection from "./themeSelection";
+
 
 
 function ChatWindow() {
@@ -65,6 +65,7 @@ function ChatWindow() {
                   date={value.date}
                   time={value.time}
                   name={value.userID}
+                  image={value.image}
                   key={index}
                 />
               ) : (
@@ -72,6 +73,7 @@ function ChatWindow() {
                   text={value.msg}
                   date={value.date}
                   time={value.time}
+                  image={value.image}
                   key={index}
                 />
               );
@@ -81,7 +83,6 @@ function ChatWindow() {
         {/* {Chat Input} */}
         <ChatInput />
       </div>
-      {/* <ThemeSelection /> */}
     </>
   );
 }
