@@ -42,7 +42,7 @@ function ChatInput() {
             }}
           >
             <svg
-              class="send-svg"
+              className="send-svg"
               width="80px"
               height="80px"
               viewBox="0 0 24 24"
@@ -57,7 +57,7 @@ function ChatInput() {
                   x2="100%"
                   y2="0%"
                 >
-                  <stop offset="0%" stop-color="#00BFFF">
+                  <stop offset="0%" stopColor="#00BFFF">
                     <animate
                       attributeName="stop-color"
                       values="#00BFFF;#1E90FF;#00BFFF"
@@ -65,9 +65,9 @@ function ChatInput() {
                       repeatCount="indefinite"
                     />
                   </stop>
-                  <stop offset="100%" stop-color="#1E90FF">
+                  <stop offset="100%" stopColor="#1E90FF">
                     <animate
-                      attributeName="stop-color"
+                      attributeName="stopColor"
                       values="#1E90FF;#00FFCC;#1E90FF"
                       dur="2s"
                       repeatCount="indefinite"

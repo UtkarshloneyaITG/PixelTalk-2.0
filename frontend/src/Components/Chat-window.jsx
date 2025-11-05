@@ -12,19 +12,21 @@ function ChatWindow() {
     //3️⃣ bring the last item into view
     chatLogs.current?.lastElementChild?.scrollIntoView();
   }, [messages]);
-  useEffect(() => {
-    const handleMessage = (msg) => {
-      // Ignore messages already in list (simple duplicate prevention)
-      setMessages((prev) => {
-        let exists = JSON.stringify(prev) == JSON.stringify(msg);
-        if (exists) return prev;
-        return [...prev, msg];
-      });
-    };
+useEffect(() => {
+  const handleMessage = (msg) => {
+    // Ignore messages already in list (simple duplicate prevention)
+    setMessages((prev) => {
+      const exists = prev.some(
+        (m) => m.msg === msg.msg && m.time === msg.time && m.userID === msg.userID
+      );
+      if (exists) return prev;
+      return [...prev, msg];
+    });
+  };
 
-    socket.on("chat-message", handleMessage);
-    return () => socket.off("chat-message", handleMessage);
-  }, []);
+  socket.on("chat-message", handleMessage);
+  return () => socket.off("chat-message", handleMessage);
+}, []);
 
   return (
     <>
