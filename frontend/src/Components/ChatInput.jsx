@@ -12,7 +12,7 @@ function ChatInput() {
           placeholder="Message"
           className="msg-input"
           onInput={(e) => {
-            setsend({ msg: e.target.value, userID: 2 });
+            setsend({ msg: e.target.value, userID: "Gamith" });
           }}
           value={send.msg}
         />
