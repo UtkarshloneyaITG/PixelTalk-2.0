@@ -115,6 +115,10 @@
     flex-direction: column;
 }
 
+.Chat--Chat-placeholder::-webkit-scrollbar {
+    display: none;
+}
+
 .ChatSendBy-- {
     padding: 5px 15px;
     border: 1px solid rgb(59, 59, 59);
