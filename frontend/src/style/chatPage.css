@@ -111,7 +111,6 @@
     overflow: auto;
     display: flex;
     height: calc(100vh - 215px);
-
     flex-direction: column;
 }
 
@@ -163,6 +162,7 @@
     .msg-box {
         width: 85%;
     }
+
     .chat-window {
         background: var(--color-zinc-950);
         padding: 0px;
