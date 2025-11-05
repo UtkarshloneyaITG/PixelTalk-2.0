@@ -7,7 +7,7 @@ const messageController = async (socket, io, msg) => {
   try {
     const MSG = new messageOBJECT(msg.msg, msg.userID);
   
-    await socket.broadcast.emit("chat-message", MSG);
+    await io.emit("chat-message", MSG)
 
     let fileData = [];
 

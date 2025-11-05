@@ -4,29 +4,36 @@ import ChatInput from "./ChatInput";
 import { useRef, useState } from "react";
 import { useEffect } from "react";
 import { socket } from "../services/socket";
+import { useMsgFunctions } from "../provider/msgContext";
 
 function ChatWindow() {
+  const { send, sendMessage } = useMsgFunctions();
+
   const [messages, setMessages] = useState([]);
+
+  console.log(messages);
+
   const chatLogs = useRef(null);
+
   useEffect(() => {
-    //3️⃣ bring the last item into view
     chatLogs.current?.lastElementChild?.scrollIntoView();
   }, [messages]);
-useEffect(() => {
-  const handleMessage = (msg) => {
-    // Ignore messages already in list (simple duplicate prevention)
-    setMessages((prev) => {
-      const exists = prev.some(
-        (m) => m.msg === msg.msg && m.time === msg.time && m.userID === msg.userID
-      );
-      if (exists) return prev;
-      return [...prev, msg];
-    });
-  };
+  useEffect(() => {
+    const handleMessage = (msg) => {
+      // Ignore messages already in list (simple duplicate prevention)
+      setMessages((prev) => {
+        const exists = prev.some(
+          (m) =>
+            m.msg === msg.msg && m.time === msg.time && m.userID === msg.userID
+        );
+        if (exists) return prev;
+        return [...prev, msg];
+      });
+    };
 
-  socket.on("chat-message", handleMessage);
-  return () => socket.off("chat-message", handleMessage);
-}, []);
+    socket.on("chat-message", handleMessage);
+    return () => socket.off("chat-message", handleMessage);
+  }, []);
 
   return (
     <>

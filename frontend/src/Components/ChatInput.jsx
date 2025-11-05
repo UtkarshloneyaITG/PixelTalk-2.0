@@ -1,27 +1,11 @@
-import { useEffect, useState } from "react";
-import { socket } from "../services/socket";
+
+import { useMsgFunctions } from "../provider/msgContext";
 import "../style/chatPage.css";
 
 function ChatInput() {
-  const [send, setsend] = useState({ msg: "", userID: "" });
-  const sendMessage = () => {
-    socket.emit("chat-message", send);
-    setsend({ msg: "", userID: "" });
-  };
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      if (e.key === "Enter") {
-        sendMessage();
-      }
-    };
 
-    window.addEventListener("keydown", handleKeyDown);
+ const {send ,setsend , sendMessage } =  useMsgFunctions()
 
-    // cleanup on unmount
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [send]);
   return (
     <>
       <div className=" md:w-[80%] sm:w-[100%] self-center msg-box text-white rounded-3xl flex pl-5 flex justify-center items-center">
@@ -30,7 +14,7 @@ function ChatInput() {
           placeholder="Message"
           className="msg-input"
           onInput={(e) => {
-            setsend({ msg: e.target.value, userID: 1 });
+            setsend({ msg: e.target.value, userID: 2 });
           }}
           value={send.msg}
         />
