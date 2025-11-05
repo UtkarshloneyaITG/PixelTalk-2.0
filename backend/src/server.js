@@ -12,7 +12,6 @@ const io = new Server(server, {
 });
 
 app.use(cors({ origin: "*" }));
-app.use(express.static("public"));
 
 io.on("connection", (socket) => {
   console.log("🟢 frontend connected:", socket.id);

@@ -59,7 +59,7 @@ function ChatWindow() {
             ref={chatLogs}
           >
             {messages.map((value, index) => {
-              return value.userID != "parth" ? (
+              return value.userID != "Gamith" ? (
                 <SendBy
                   text={value.msg}
                   date={value.date}
