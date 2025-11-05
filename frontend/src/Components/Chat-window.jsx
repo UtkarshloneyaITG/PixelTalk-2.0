@@ -31,8 +31,8 @@ useEffect(() => {
   return (
     <>
       <div className=" relative flex flex-col flex-1 px-10 pb-5 chat-window justify-end ">
-        <div className="h-full">
-          <div className="flex items-center justify-between pr-7">
+        <div className="chat-wrapper w-full">
+          <div className="flex items-center justify-between px-5">
             <div className="profile flex items-center">
               <div className="profile-image"></div>
               <div className="px-3 py-8  Chat-Person--placeholder text-2xl">
