@@ -15,25 +15,26 @@ function ChatWindow() {
   console.log(messages);
 
   const chatLogs = useRef(null);
-  
+
   useEffect(() => {
     chatLogs.current?.lastElementChild?.scrollIntoView();
   }, [messages]);
-
   useEffect(() => {
     const handleMessage = (msg) => {
+      // Ignore messages already in list (simple duplicate prevention)
       setMessages((prev) => {
-        let exists = JSON.stringify(prev) == JSON.stringify(msg);
+        const exists = prev.some(
+          (m) =>
+            m.msg === msg.msg && m.time === msg.time && m.userID === msg.userID
+        );
         if (exists) return prev;
         return [...prev, msg];
       });
     };
 
-    console.log;
-
     socket.on("chat-message", handleMessage);
     return () => socket.off("chat-message", handleMessage);
-  }, [send, sendMessage, messages , setMessages]);
+  }, []);
 
   return (
     <>

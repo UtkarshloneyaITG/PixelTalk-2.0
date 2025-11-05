@@ -4,7 +4,7 @@ import { socket } from "../services/socket";
 const MsgContext = createContext();
 
 export const MsgContextProvider = ({ children }) => {
-  const [send, setsend] = useState({ msg: "", userID: "" });
+  const [send, setsend] = useState({ msg: "", userID: "2" });
   const sendMessage = () => {
     socket.emit("chat-message", send);
     setsend({ msg: "", userID: "" });
@@ -13,7 +13,9 @@ export const MsgContextProvider = ({ children }) => {
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === "Enter") {
-        sendMessage();
+        if (send.msg.trim() !== "") {
+          sendMessage();
+        }
       }
     };
 
