@@ -1,10 +1,8 @@
-
 import { useMsgFunctions } from "../provider/msgContext";
 import "../style/chatPage.css";
 
 function ChatInput() {
-
- const {send ,setsend , sendMessage } =  useMsgFunctions()
+  const { send, setsend, sendMessage } = useMsgFunctions();
 
   return (
     <>
@@ -26,7 +24,7 @@ function ChatInput() {
             }}
           >
             <svg
-              className="send-svg"
+              className="send-svg -mr-3"
               width="80px"
               height="80px"
               viewBox="0 0 24 24"

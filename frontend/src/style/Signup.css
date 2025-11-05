@@ -11,12 +11,8 @@
     --color-placeholder: #a9a9a9;
 
     /* 🌈 Gradients */
-    --gradient-instagram: linear-gradient(135deg,
-            #f09433 0%,
-            #e6683c 25%,
-            #dc2743 50%,
-            #cc2366 75%,
-            #bc1888 100%);
+     --gradient-instagram: linear-gradient(to right,
+      #833ab4, #fd1d1d, #fcb045);
 
     /* ✨ Shadows */
     --shadow-card: 0px 0px 10px rgba(255, 255, 255, 0.3);

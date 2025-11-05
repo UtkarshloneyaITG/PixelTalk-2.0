@@ -6,8 +6,8 @@ const chatJSON = path.join("C:/Users/Itgeeks/Desktop/ChatData/chat.json");
 const messageController = async (socket, io, msg) => {
   try {
     const MSG = new messageOBJECT(msg.msg, msg.userID);
-  
-    await io.emit("chat-message", MSG)
+
+    await io.emit("chat-message", MSG);
 
     let fileData = [];
 
