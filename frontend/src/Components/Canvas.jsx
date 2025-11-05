@@ -1,5 +1,5 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { io } from 'socket.io-client';
+import React, { useState, useRef, useEffect } from "react";
+import { io } from "socket.io-frontend";
 
 const socket = io("http://192.168.10.69:3000");
 
@@ -9,7 +9,7 @@ const Canvas = () => {
   const [drawing, setDrawing] = useState(false);
   const [brushColor, setBrushColor] = useState("black");
   const [colorPlates, setColorPlates] = useState(colorPlatesInitial);
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState("");
   const canvasRef = useRef(null);
   const msgAreaRef = useRef(null);
 
@@ -32,26 +32,33 @@ const Canvas = () => {
     });
 
     socket.on("cleared", () => {
-      ctx.current.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
+      ctx.current.clearRect(
+        0,
+        0,
+        canvasRef.current.width,
+        canvasRef.current.height
+      );
     });
 
     socket.on("chat-message", (msg) => {
       const msgBox = document.createElement("div");
       msgBox.innerHTML = `
-        <div class="msg-div self sender">
-          <div class="user-msg">${msg}</div>
+        <div className="msg-div self sender">
+          <div className="user-msg">${msg}</div>
         </div>
       `;
       msgAreaRef.current.appendChild(msgBox);
     });
-
   }, []);
 
   const handleCanvasMouseDown = (e) => {
     setDrawing(true);
     ctx.current.beginPath();
     ctx.current.moveTo(e.nativeEvent.offsetX, e.nativeEvent.offsetY);
-    socket.emit("start", { x: e.nativeEvent.offsetX, y: e.nativeEvent.offsetY });
+    socket.emit("start", {
+      x: e.nativeEvent.offsetX,
+      y: e.nativeEvent.offsetY,
+    });
   };
 
   const handleCanvasMouseUp = () => setDrawing(false);
@@ -60,7 +67,11 @@ const Canvas = () => {
   const handleCanvasMouseMove = (e) => {
     if (!drawing) return;
 
-    const pos = { x: e.nativeEvent.offsetX, y: e.nativeEvent.offsetY, color: brushColor };
+    const pos = {
+      x: e.nativeEvent.offsetX,
+      y: e.nativeEvent.offsetY,
+      color: brushColor,
+    };
     ctx.current.lineTo(pos.x, pos.y);
     ctx.current.strokeStyle = brushColor;
     ctx.current.stroke();
@@ -70,11 +81,16 @@ const Canvas = () => {
 
   const clearBoard = () => {
     socket.emit("clear");
-    ctx.current.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
+    ctx.current.clearRect(
+      0,
+      0,
+      canvasRef.current.width,
+      canvasRef.current.height
+    );
   };
 
   const addColor = () => {
-    const color = document.querySelector('.color-picker-user').value;
+    const color = document.querySelector(".color-picker-user").value;
     setColorPlates((prevPlates) => [...prevPlates, color]);
   };
 
@@ -84,13 +100,13 @@ const Canvas = () => {
     if (!message.trim()) return;
     const msgBox = document.createElement("div");
     msgBox.innerHTML = `
-      <div class="msg-div self">
-        <div class="user-msg">${message}</div>
+      <div className="msg-div self">
+        <div className="user-msg">${message}</div>
       </div>
     `;
     msgAreaRef.current.appendChild(msgBox);
     socket.emit("chat-message", message);
-    setMessage('');
+    setMessage("");
   };
 
   const handleKeyPress = (e) => {
@@ -100,9 +116,10 @@ const Canvas = () => {
   return (
     <div className="min-h-screen flex flex-col items-center py-4 bg-gray-100">
       <section className="w-full flex justify-center space-x-4 mb-4">
-        <button 
-          onClick={clearBoard} 
-          className="px-4 py-2 bg-red-500 text-white rounded-lg shadow hover:bg-red-600">
+        <button
+          onClick={clearBoard}
+          className="px-4 py-2 bg-red-500 text-white rounded-lg shadow hover:bg-red-600"
+        >
           Clear
         </button>
         <div className="flex items-center space-x-2">
@@ -111,19 +128,22 @@ const Canvas = () => {
               <div
                 key={index}
                 style={{ backgroundColor: color }}
-                className={`w-8 h-8 border-2 border-white rounded-md ${brushColor === color ? 'border-black' : ''}`}
+                className={`w-8 h-8 border-2 border-white rounded-md ${
+                  brushColor === color ? "border-black" : ""
+                }`}
                 onClick={() => setBrushColor(color)}
               />
             ))}
           </div>
           <div>
-            <button 
-              onClick={addColor} 
-              className="px-2 py-1 bg-gray-300 rounded-lg hover:bg-gray-400">
+            <button
+              onClick={addColor}
+              className="px-2 py-1 bg-gray-300 rounded-lg hover:bg-gray-400"
+            >
               +
             </button>
-            <input 
-              type="color" 
+            <input
+              type="color"
               className="mt-1 w-10 h-10 border-none cursor-pointer"
             />
           </div>
@@ -142,8 +162,11 @@ const Canvas = () => {
             onMouseLeave={handleCanvasMouseLeave}
             onMouseMove={handleCanvasMouseMove}
           />
-          <div id="msg-area" ref={msgAreaRef} className="overflow-y-scroll max-h-[200px] mb-4 p-2 bg-[#292929] border rounded-md">
-          </div>
+          <div
+            id="msg-area"
+            ref={msgAreaRef}
+            className="overflow-y-scroll max-h-[200px] mb-4 p-2 bg-[#292929] border rounded-md"
+          ></div>
           <div className="message-box flex items-center space-x-2 mt-4">
             <input
               type="text"
@@ -153,9 +176,10 @@ const Canvas = () => {
               onKeyDown={handleKeyPress}
               className="w-full px-4 py-2 border  border-gray-300 rounded-md"
             />
-            <button 
-              onClick={handleSendMessage} 
-              className="px-4 py-2 bg-blue-500 text-white rounded-lg shadow hover:bg-blue-600">
+            <button
+              onClick={handleSendMessage}
+              className="px-4 py-2 bg-blue-500 text-white rounded-lg shadow hover:bg-blue-600"
+            >
               Send
             </button>
           </div>
