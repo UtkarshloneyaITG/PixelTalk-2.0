@@ -4,23 +4,16 @@ import ChatInput from "./ChatInput";
 import { useRef, useState } from "react";
 import { useEffect } from "react";
 import { socket } from "../services/socket";
-import { useMsgFunctions } from "../provider/msgContext";
 
 function ChatWindow() {
-  const { send, sendMessage } = useMsgFunctions();
-
   const [messages, setMessages] = useState([]);
-
-  console.log(messages);
-
   const chatLogs = useRef(null);
-  
   useEffect(() => {
     chatLogs.current?.lastElementChild?.scrollIntoView();
   }, [messages]);
-
   useEffect(() => {
     const handleMessage = (msg) => {
+      // Ignore messages already in list (simple duplicate prevention)
       setMessages((prev) => {
         let exists = JSON.stringify(prev) == JSON.stringify(msg);
         if (exists) return prev;
@@ -28,17 +21,15 @@ function ChatWindow() {
       });
     };
 
-    console.log;
-
     socket.on("chat-message", handleMessage);
     return () => socket.off("chat-message", handleMessage);
-  }, [send, sendMessage, messages , setMessages]);
+  }, []);
 
   return (
     <>
       <div className=" relative flex flex-col flex-1 px-10 pb-5 chat-window justify-end ">
-        <div className="chat-wrapper w-full">
-          <div className="flex items-center justify-between px-5">
+        <div className="h-full">
+          <div className="flex items-center justify-between pr-7">
             <div className="profile flex items-center">
               <div className="profile-image"></div>
               <div className="px-3 py-8  Chat-Person--placeholder text-2xl">
