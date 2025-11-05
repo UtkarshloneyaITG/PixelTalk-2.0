@@ -14,24 +14,18 @@ function ChatWindow() {
   }, [messages]);
   useEffect(() => {
     const handleMessage = (msg) => {
+      // Ignore messages already in list (simple duplicate prevention)
       setMessages((prev) => {
-        const newMessages = [...prev, msg];
-        console.log(newMessages); // now it shows the updated array
-        return newMessages;
+        let exists = JSON.stringify(prev) == JSON.stringify(msg);
+        if (exists) return prev;
+        return [...prev, msg];
       });
     };
 
-    // let MYID =
-    //     useEffect(()=>{
-    //       const myuserid = JSON.parse(localStorage.getItem("userid"))
-
-    //     },[])
     socket.on("chat-message", handleMessage);
-
-    return () => {
-      socket.off("chat-message", handleMessage);
-    };
+    return () => socket.off("chat-message", handleMessage);
   }, []);
+
   return (
     <>
       <div className=" relative flex flex-col flex-1 px-10 pb-5 chat-window justify-end ">
