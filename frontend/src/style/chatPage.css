@@ -33,6 +33,8 @@
         0 0 6px 0.5px #cc23679d,
         0 0 6px 0.6px #bc1888a6;
     ;
+    position: absolute;
+    bottom: 25px;
 }
 
 .chat-window {
@@ -83,3 +85,61 @@
         0 0 6px 0.6px #bc1888a6;
     ;
 }
+
+.fade-messages {
+    position: relative;
+    height: 100%;
+    overflow-y: auto;
+    /* mask-image: linear-gradient(to bottom,
+            rgb(0, 0, 0) 0%,  
+            rgb(0, 0, 0) 80%,  
+            rgba(0, 0, 0, 0) 100%  
+    );
+    -webkit-mask-image: linear-gradient(to bottom,
+            rgb(0, 0, 0) 0%,
+            rgb(0, 0, 0) 80%,
+            rgba(0, 0, 0, 0.466) 100%
+    ); */
+}
+
+/* Optional: smooth fade-in animation for new messages */
+.fade-messages > * {
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.Chat--Chat-placeholder {
+    backdrop-filter: blur(5px);
+    overflow: auto;
+    height: 580px;
+    display: flex;
+    flex-direction: column;
+}
+
+.ChatSendBy-- {
+  padding: 5px 15px;
+  border: 1px solid rgb(59, 59, 59);
+  border-radius: 20px;
+  background-color: var(--color-zinc-800);
+  width: fit-content;
+  font-size: 18px;
+}
+
+.ChatSendTo-- {
+  color: white;
+  border: 1px solid rgb(9, 69, 126);
+  padding: 5px 15px;
+  border-radius: 20px;
+  animation: ChatSendTo-tranformation 0.4s ease-out;
+  background-color: var(--color-blue-500);
+  font-size: 18px;
+}
+
+.profile-image{
+    background-color: var(--color-zinc-600);
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    border-radius: 99px;
+    border: 1px solid grey;
+}
+

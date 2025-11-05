@@ -1,6 +1,27 @@
+import { useEffect, useState } from "react";
+import { socket } from "../services/socket";
 import "../style/chatPage.css";
 
 function ChatInput() {
+  const [send, setsend] = useState({ msg: "", userID: "" });
+  const sendMessage = () => {
+    socket.emit("chat-message", send);
+    setsend({ msg: "", userID: "" });
+  };
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "Enter") {
+        sendMessage();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    // cleanup on unmount
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [send]);
   return (
     <>
       <div className="flex items-center gap-3 px-4 py-3 border-t border-slate-700 Chat--chat-input">
@@ -8,10 +29,18 @@ function ChatInput() {
           type="text"
           placeholder="Message"
           className="msg-input"
-          // value={"sdf"}
+          onInput={(e) => {
+            setsend({ msg: e.target.value, userID: 1 });
+          }}
+          value={send.msg}
         />
         <div className="msg-button -mb-2">
-          <button className="send-btn -mb-5">
+          <button
+            className="send-btn -mb-5"
+            onClick={() => {
+              sendMessage(send);
+            }}
+          >
             <svg
               className="send-svg"
               width="80px"
