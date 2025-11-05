@@ -153,17 +153,36 @@
     background-color: var(--color-zinc-950);
 }
 
+
+.Chat--Chat-placeholder::-webkit-scrollbar {
+  display: none;
+}
+
+@media (max-width:1024px) {
+
+    .Chat--Chat-placeholder {
+        height:690px;
+    }
+     .msg-box {
+        width: 90%;
+    }
+     .chat-list {
+       width:30%
+    }
+
+}
+
 @media (max-width:768px) {
     .chat-list {
         display: none;
     }
 
     .msg-box {
-        width: 85%;
+        width: 95%;
     }
 
     .Chat--Chat-placeholder {
-        height: 500px;
+        height: 580px;
     }
 
     .chat-window {
@@ -177,3 +196,4 @@
         padding: 5px 10px;
     }
 }
+
