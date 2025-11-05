@@ -1,12 +1,14 @@
 import SendTo from "./ChatSendTo";
 import SendBy from "./ChatSendBy";
 import ChatInput from "./ChatInput";
-import { useRef, useState } from "react";
-import { useEffect } from "react";
+import { useRef, useState , useEffect} from "react";
 import { socket } from "../services/socket";
 import ChatAppHeader from "./ChatAppHeader";
 import { useMsgFunctions } from "../provider/msgContext";
 import pixel_talk from "../assets/svg/Pixel Talk(full).png";
+
+
+
 function ChatWindow() {
   const { send, sendMessage } = useMsgFunctions();
 
@@ -31,6 +33,7 @@ function ChatWindow() {
       });
     }
   }, [messages]);
+
   useEffect(() => {
     const handleMessage = (msg) => {
       // Ignore messages already in list (simple duplicate prevention)
