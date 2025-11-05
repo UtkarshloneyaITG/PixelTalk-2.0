@@ -10,7 +10,7 @@
 import { io } from "socket.io-client";
 
 // Connect to your backend
-export const socket = io("http://192.168.10.69:3000"); // replace with your backend IP
+export const socket = io("http://192.168.10.69:5000"); // replace with your backend IP
 
 // Notification.requestPermission().then((permission) => {
 //   console.log("Permission:", permission);
