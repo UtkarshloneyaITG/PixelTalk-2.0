@@ -20,10 +20,6 @@
   display: none;
 }
 
-.Chat--chat-input {
-  backdrop-filter: blur(10px);
-}
-
 .Chat--chat-list {
 
   background: rgba(3, 254, 134, 0.31);
@@ -104,21 +100,4 @@
   to {
     background-position: 200% 200%;
   }
-}
-
-.Chat--chat-input button span {
-  transition: 0.3s;
-  position: relative;
-}
-
-.Chat--chat-input button span::before {
-  content: '';
-  position: absolute;
-  left: -25px;
-}
-
-.Chat--chat-input button:hover span,
-.Chat--chat-input button:hover span::before {
-  transform: rotate(360deg) translate(10px);
-  content: '⁐=';
 }

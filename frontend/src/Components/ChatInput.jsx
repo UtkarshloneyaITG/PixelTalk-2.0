@@ -1,20 +1,18 @@
-
 import { useMsgFunctions } from "../provider/msgContext";
 import "../style/chatPage.css";
 
 function ChatInput() {
-
- const {send ,setsend , sendMessage } =  useMsgFunctions()
+  const { send, setsend, sendMessage } = useMsgFunctions();
 
   return (
     <>
-      <div className="flex items-center gap-3 px-4 py-3 border-t border-slate-700 Chat--chat-input">
+      <div className=" md:w-[80%] sm:w-[100%] self-center msg-box text-white rounded-3xl flex pl-5 flex justify-center items-center">
         <input
           type="text"
           placeholder="Message"
           className="msg-input"
           onInput={(e) => {
-            setsend({ msg: e.target.value, userID: 1 });
+            setsend({ msg: e.target.value, userID: 2 });
           }}
           value={send.msg}
         />
@@ -26,7 +24,7 @@ function ChatInput() {
             }}
           >
             <svg
-              className="send-svg"
+              className="send-svg -mr-3"
               width="80px"
               height="80px"
               viewBox="0 0 24 24"
@@ -51,7 +49,7 @@ function ChatInput() {
                   </stop>
                   <stop offset="100%" stopColor="#1E90FF">
                     <animate
-                      attributeName="stop-color"
+                      attributeName="stopColor"
                       values="#1E90FF;#00FFCC;#1E90FF"
                       dur="2s"
                       repeatCount="indefinite"
