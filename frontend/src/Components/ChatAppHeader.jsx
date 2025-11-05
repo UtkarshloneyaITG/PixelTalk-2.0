@@ -1,8 +1,11 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect,useState } from "react";
 import gsap from "gsap";
+import Sidebar from "./settingSidebar";
 
 function ChatAppHeader() {
   const buttonRef = useRef(null);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
 
   useEffect(() => {
     const btn = buttonRef.current;
@@ -44,19 +47,22 @@ function ChatAppHeader() {
   }, []);
 
   return (
-    <div className="flex items-center justify-between px-5">
-      <div className="profile flex items-center">
-        <div className="profile-image w-10 h-10 bg-gray-500 rounded-full"></div>
-        <div className="px-3 py-8 Chat-Person--placeholder text-2xl">User</div>
+    <>
+      <div className="flex items-center justify-between px-5">
+        <div className="profile flex items-center">
+          <div className="profile-image w-10 h-10 bg-gray-500 rounded-full"></div>
+          <div className="px-3 py-8 Chat-Person--placeholder text-2xl">User</div>
+        </div>
+        <div className="extra flex pr-3">
+          <button ref={buttonRef} className="cursor-pointer flex space-x-1" onClick={() => setIsSidebarOpen(true)}>
+            <span>●</span>
+            <span>●</span>
+            <span>●</span>
+          </button>
+        </div>
       </div>
-      <div className="extra flex pr-3">
-        <button ref={buttonRef} className="cursor-pointer flex space-x-1">
-          <span>●</span>
-          <span>●</span>
-          <span>●</span>
-        </button>
-      </div>
-    </div>
+      <Sidebar isOpen={isSidebarOpen} closeSidebar={() => setIsSidebarOpen(false)} />
+    </>
   );
 }
 
