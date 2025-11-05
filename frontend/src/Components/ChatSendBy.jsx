@@ -1,9 +1,10 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 
 function SendBy({ text, date, time, name, image }) {
   const el = useRef(null);
+  const [isFullScreen, setIsFullScreen] = useState(false);
 
   useGSAP(() => {
     const animate = () => {
@@ -39,7 +40,6 @@ function SendBy({ text, date, time, name, image }) {
         );
     };
 
-    // 👇 run only when tab visible or wait until visible
     if (!document.hidden) {
       animate();
     } else {
@@ -56,31 +56,64 @@ function SendBy({ text, date, time, name, image }) {
     }
   }, []);
 
+  // Close fullscreen on Esc
+  useEffect(() => {
+    const handleEsc = (e) => {
+      if (e.key === "Escape") setIsFullScreen(false);
+    };
+    window.addEventListener("keydown", handleEsc);
+    return () => window.removeEventListener("keydown", handleEsc);
+  }, []);
+
   return (
-    <div
-      ref={el}
-      className="ChatSendBy--"
-      style={{
-        padding: "10px 18px",
-        borderRadius: "20px",
-        display: "inline-block",
-        color: "white",
-        fontSize: "16px",
-        transformOrigin: "bottom left",
-      }}
-    >
-      {image && (
-        <img
-          src={image}
-          style={{
-            maxWidth: "300px",
-            marginBottom: "5px",
-            borderRadius: "10px",
-          }}
-        />
+    <>
+      <div
+        ref={el}
+        className="ChatSendBy--"
+        style={{
+          padding: "10px 18px",
+          borderRadius: "20px",
+          display: "inline-block",
+          color: "white",
+          fontSize: "16px",
+          transformOrigin: "bottom left",
+        }}
+      >
+        {/* Image display (click to open fullscreen) */}
+        {image && (
+          <img
+            src={image}
+            style={{
+              maxWidth: "300px",
+              marginBottom: "5px",
+              borderRadius: "10px",
+              cursor: "pointer",
+            }}
+            alt="sent"
+            onClick={() => setIsFullScreen(true)}
+          />
+        )}
+        {text}
+      </div>
+
+      {/* Full-screen view (keeps your message style untouched) */}
+      {isFullScreen && (
+        <div
+          className="fixed inset-0 bg-black/90 flex items-center justify-center z-[9999] h-full"
+          onClick={() => setIsFullScreen(false)}
+        >
+          <img
+            src={image}
+            alt="fullscreen"
+            style={{
+              maxWidth: "90vw",
+              maxHeight: "90vh",
+              objectFit: "contain",
+            }}
+          />
+        </div>
       )}
-      {text}
-    </div>
+    </>
   );
 }
 
