@@ -8,33 +8,38 @@ function ChatAppHeader() {
     const btn = buttonRef.current;
     const dots = btn.querySelectorAll("span");
 
-    const hoverAnim = () => {
-      const tl = gsap.timeline();
 
-      tl.to(btn, {
-        scale: 1.2,
-        duration: 0.2,
-        // ease: "power1.out",
-      });
-      
-      tl.to(dots,{
-        y:-10,
-        stagger : 1
-      })
-      
+    const hoverIn = () => {
+      const tl = gsap.timeline();
+      tl.to(btn, { scale: 1.2, duration: 0.2, ease: "power1.out" });
+
+      tl.to(
+        dots,
+        {
+          y: -10,
+          scale: 1.3,
+          duration: 0.3,
+          stagger: 0.1,
+          ease: "power1.inOut",
+          yoyo: true,
+          repeat: 1,
+        },
+        "<" // start with button scale
+      );
     };
 
-    // const hoverOutAnim = () => {
-    //   gsap.to(btn, { scale: 1, rotation: 0, duration: 0.2, ease: "power1.out" });
-    //   gsap.to(dots, { y: 0, rotation: 0, duration: 0.2, stagger: 0.05 });
-    // };
+    // Hover out animation
+    const hoverOut = () => {
+      gsap.to(btn, { scale: 1, rotation: 0, duration: 0.2, ease: "power1.out" });
+      gsap.to(dots, { y: 0, rotation: 0, scale: 1, duration: 0.2, ease: "power1.out", stagger: 0.05 });
+    };
 
-    btn.addEventListener("mouseenter", hoverAnim);
-    btn.addEventListener("mouseleave", hoverOutAnim);
+    btn.addEventListener("mouseenter", hoverIn);
+    btn.addEventListener("mouseleave", hoverOut);
 
     return () => {
-      btn.removeEventListener("mouseenter", hoverAnim);
-      btn.removeEventListener("mouseleave", hoverOutAnim);
+      btn.removeEventListener("mouseenter", hoverIn);
+      btn.removeEventListener("mouseleave", hoverOut);
     };
   }, []);
 

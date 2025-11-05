@@ -21,7 +21,7 @@ function ChatWindow() {
     if (
       document.hidden &&
       Notification.permission === "granted" &&
-      messages[messages.length - 1].userID != "Gamith"
+      messages[messages.length - 1].userID != "parth"
     ) {
       new Notification("New Message", {
         body: `${messages[messages.length - 1].userID}: ${
