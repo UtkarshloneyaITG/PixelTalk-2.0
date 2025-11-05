@@ -1,19 +1,48 @@
+import { useEffect, useState } from "react";
+import { socket } from "../services/socket";
 import "../style/chatPage.css";
 
 function ChatInput() {
+  const [send, setsend] = useState({ msg: "", userID: "" });
+  const sendMessage = () => {
+    socket.emit("chat-message", send);
+    setsend({ msg: "", userID: "" });
+  };
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "Enter") {
+        sendMessage();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    // cleanup on unmount
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [send]);
   return (
     <>
-      <div className=" md:w-[80%] sm:w-[100%] self-center msg-box text-white rounded-3xl flex pl-5 flex justify-center items-center">
+      <div className="flex items-center gap-3 px-4 py-3 border-t border-slate-700 Chat--chat-input">
         <input
           type="text"
           placeholder="Message"
           className="msg-input"
-          // value={"sdf"}
+          onInput={(e) => {
+            setsend({ msg: e.target.value, userID: 1 });
+          }}
+          value={send.msg}
         />
         <div className="msg-button -mb-2">
-          <button className="send-btn -mb-5">
+          <button
+            className="send-btn -mb-5"
+            onClick={() => {
+              sendMessage(send);
+            }}
+          >
             <svg
-              class="send-svg"
+              className="send-svg"
               width="80px"
               height="80px"
               viewBox="0 0 24 24"
@@ -28,7 +57,7 @@ function ChatInput() {
                   x2="100%"
                   y2="0%"
                 >
-                  <stop offset="0%" stop-color="#00BFFF">
+                  <stop offset="0%" stopColor="#00BFFF">
                     <animate
                       attributeName="stop-color"
                       values="#00BFFF;#1E90FF;#00BFFF"
@@ -36,7 +65,7 @@ function ChatInput() {
                       repeatCount="indefinite"
                     />
                   </stop>
-                  <stop offset="100%" stop-color="#1E90FF">
+                  <stop offset="100%" stopColor="#1E90FF">
                     <animate
                       attributeName="stop-color"
                       values="#1E90FF;#00FFCC;#1E90FF"

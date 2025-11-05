@@ -101,8 +101,8 @@ export const socket = io("http://192.168.10.69:3000"); // replace with your back
 //   if (!msg) return;
 //   const msgBox = document.createElement("div");
 //   msgBox.innerHTML = `
-//     <div class="msg-div self">
-//       <div class="user-msg">
+//     <div className="msg-div self">
+//       <div className="user-msg">
 //       ${msg}
 //       </div>
 //     </div>
@@ -118,8 +118,8 @@ export const socket = io("http://192.168.10.69:3000"); // replace with your back
 // socket.on("chat-message", (msg) => {
 //   const msgBox = document.createElement("div");
 //   msgBox.innerHTML = `
-//     <div class="msg-div self sender">
-//       <div class="user-msg">
+//     <div className="msg-div self sender">
+//       <div className="user-msg">
 //       ${msg.msg}
 //       </div>
 //     </div>
