@@ -1,9 +1,10 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 
 function SendTo({ text, image }) {
   const el = useRef(null);
+  const [isFullScreen, setIsFullScreen] = useState(false);
 
   useGSAP(() => {
     const animate = () => {
@@ -54,26 +55,58 @@ function SendTo({ text, image }) {
     }
   }, []);
 
+  // ESC key closes fullscreen
+  useEffect(() => {
+    const handleEsc = (e) => {
+      if (e.key === "Escape") setIsFullScreen(false);
+    };
+    window.addEventListener("keydown", handleEsc);
+    return () => window.removeEventListener("keydown", handleEsc);
+  }, []);
+
   return (
-    <div
-      ref={el}
-      className="ChatSendTo-- text-white ml-auto"
-      style={{ padding: "10px 18px", opacity: 1 }}
-    >
-      {image != null ? (
-        <img
-          src={image}
-          style={{
-            maxWidth: "300px",
-            marginBottom: "5px",
-            borderRadius: "10px",
-          }}
-        ></img>
-      ) : (
-        ""
+    <>
+      <div
+        ref={el}
+        className="ChatSendTo-- text-white ml-auto"
+        style={{ padding: "10px 18px", opacity: 1 }}
+      >
+        {image ? (
+          <img
+            src={image}
+            style={{
+              maxWidth: "300px",
+              marginBottom: "5px",
+              borderRadius: "10px",
+              cursor: "pointer",
+            }}
+            alt="sent"
+            onClick={() => setIsFullScreen(true)}
+          />
+        ) : (
+          ""
+        )}
+        {text}
+      </div>
+
+      {/* Fullscreen overlay (click to close) */}
+      {isFullScreen && (
+        <div
+          className="fixed inset-0 bg-black/90 flex items-center justify-center z-[99] h-full"
+          onClick={() => setIsFullScreen(false)}
+        >
+          <img
+            src={image}
+            alt="fullscreen"
+            style={{
+              maxWidth: "100vw",
+              maxHeight: "100vh",
+              objectFit: "contain",
+            }}
+          />
+        </div>
       )}
-      {text}
-    </div>
+    </>
   );
 }
 
