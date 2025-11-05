@@ -15,12 +15,6 @@
   backdrop-filter: blur(10px);
 }
 
-.Chat--Chat-placeholder {
-  overflow: auto;
-  height: 370px;
-  display: flex;
-  flex-direction: column;
-}
 
 .Chat--Chat-placeholder::-webkit-scrollbar {
   display: none;
@@ -48,23 +42,7 @@
   border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
-.ChatSendBy-- {
-  background-color: #0005;
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-  box-shadow: inset 0px 0px 5px white;
-  animation: ChatSendBy-tranformation 0.4s ease-out;
 
-}
-
-.ChatSendBy--,
-.ChatSendTo-- {
-  max-width: 400px;
-}
-
-.ChatSendTo-- {
-  animation: ChatSendTo-tranformation 0.4s ease-out;
-}
 
 @keyframes ChatSendTo-tranformation {
   from {
