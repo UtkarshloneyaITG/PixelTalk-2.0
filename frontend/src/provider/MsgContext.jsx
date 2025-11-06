@@ -26,6 +26,7 @@ export const MsgContextProvider = ({ children }) => {
 
   useEffect(() => {
     const handleKeyDown = (e) => {
+
       if (e.key === "Enter") {
         if (send.msg.trim() !== "" || image != null) {
           sendMessage();
@@ -41,33 +42,23 @@ export const MsgContextProvider = ({ children }) => {
     };
   }, [send]);
 
-
   const themes = [
-
-
-  theme2,theme3 , theme4 , theme5 , theme5 , theme7 , theme8 , theme9
-
+    theme2, theme3, theme4, theme5, theme6, theme7, theme8, theme9
   ];
-
-  useEffect(()=> {
-      const savedTheme = localStorage.getItem("theme") || null;
-      setSelectedTheme(savedTheme);
-      console.log("hello them")
-  } , [])
 
   console.log("hello theme 2")
 
   const handleApply = () => {
-      localStorage.setItem("theme" , selectedTheme);
-      
-console.log("" ,selectedTheme)
+    localStorage.setItem("theme", selectedTheme);
 
     const chatBody = document.querySelector(".chat-body");
     if (chatBody && selectedTheme) {
-    ///  chatBody.style.backgroundImage = `url(${selectedTheme})`;
       chatBody.style.backgroundSize = "cover";
       chatBody.style.backgroundPosition = "center";
       chatBody.style.backgroundRepeat = "no-repeat";
+
+      const savedTheme = localStorage.getItem("theme") || null;
+      setSelectedTheme(savedTheme);
       handleCancel();
     } else {
       console.warn("⚠️ No theme selected or .chat-body not found!");
@@ -84,7 +75,7 @@ console.log("" ,selectedTheme)
 
   return (
     <MsgContext.Provider
-      value={{ send, setSelectedTheme , selectedTheme , setsend, sendMessage, image, setimage ,themes , handleApply, handleCancel , isThemeOpen , setIsThemeOpen}}
+      value={{ send, setSelectedTheme, selectedTheme, setsend, sendMessage, image, setimage, themes, handleApply, handleCancel, isThemeOpen, setIsThemeOpen }}
     >
       {children}
     </MsgContext.Provider>
