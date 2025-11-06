@@ -105,8 +105,8 @@ function ChatCanvas() {
     <div>
       <canvas
         ref={canvasRef}
-        style={{ border: "2px solid black" }}
-        className="fixed left-[28%] z-[2]"
+        style={{ border: "" }}
+        className="fixed left-[26.5%]  top-0 z-[10]"
       ></canvas>
       <div className="color-plate flex bg-[#27272a73] backdrop-blur-md  px-4 rounded-3xl py-2 items-center">
         <div className="open-btn">
