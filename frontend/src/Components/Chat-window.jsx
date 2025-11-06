@@ -6,14 +6,11 @@ import { socket } from "../services/socket";
 import ChatAppHeader from "./ChatAppHeader";
 import { useMsgFunctions } from "../provider/msgContext";
 import pixel_talk from "../assets/svg/Pixel Talk(full).png";
+import ChatCanvas from "./ChatCanvas";
 
 function ChatWindow() {
-  const { send, sendMessage } = useMsgFunctions();
-
+  const { opneCanvas } = useMsgFunctions();
   const [messages, setMessages] = useState([]);
-
-  console.log(messages);
-
   const chatLogs = useRef(null);
 
   useEffect(() => {
@@ -80,6 +77,7 @@ function ChatWindow() {
         </div>
         {/* {Chat Input} */}
         <ChatInput />
+        {/* { <ChatCanvas className={`${opneCanvas ? "block" : "hidden"}`} />} */}
       </div>
     </>
   );

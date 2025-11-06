@@ -8,7 +8,7 @@ function ChatAppBody() {
     <div className="flex flex-1 absolute chat-body w-full h-full">
       <ChatListPanel />
       <ChatWindow />
-      <ChatCanvas />
+      {/* <ChatCanvas /> */}
     </div>
   );
 }
