@@ -1,30 +1,61 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { useMsgFunctions } from "../provider/msgContext";
 import EmojiPicker from "emoji-picker-react";
 import "../style/chatPage.css";
 import logo_of_img from "../assets/svg/image-square-svgrepo-com.svg";
+import gsap from 'gsap';
+
+
+
 function ChatInput() {
   const fileinput = useRef();
   const { send, setsend, sendMessage, image, setimage } = useMsgFunctions();
-  const [message, setMessage] = useState("");
+  // const [message, setMessage] = useState("");
   const [showPicker, setShowPicker] = useState(false);
+  const emojiBoxRef = useRef();
 
   const onEmojiClick = (emojiData) => {
-    setMessage((prev) => prev + emojiData.emoji);
+    setsend((prev) => ({...prev, msg: prev.msg += emojiData.emoji }));
     setShowPicker(false);
   };
 
+  useEffect(() => {
+    if (!emojiBoxRef.current) return;
+
+    if (showPicker) {
+      gsap.fromTo(
+        emojiBoxRef.current,
+        { y: 70, opacity: 0 },
+        { y: 0, opacity: 1, duration: 1.8, ease: "elastic.out(1, 0.5)" }
+      );
+    } else {
+      gsap.to(emojiBoxRef.current, {
+        y: -70,
+        opacity: 0,
+        duration: 1.8,
+        ease: "power2.in",
+      });
+    }
+  }, [showPicker]);
 
   return (
     <>
       <div className="flex">
         {showPicker && (
-          <div style={{ position: "absolute", bottom: "40px", right: "0" }}>
-            <EmojiPicker theme="dark"
+          <div
+            className="emoji-box"
+            ref={emojiBoxRef}
+            style={{
+              display: showPicker ? "block" : "none",
+            }}
+          >
+            <EmojiPicker
+              theme="dark"
               lazyLoadEmojis={true}
               searchDisabled={false}
               previewConfig={{ showPreview: false }}
-              onEmojiClick={onEmojiClick} />
+              onEmojiClick={onEmojiClick}
+            />
           </div>
         )}
         <div
@@ -80,8 +111,7 @@ function ChatInput() {
             onInput={(e) => {
               setsend({ msg: e.target.value, userID: "parth", image: image });
             }}
-            onChange={(e) => setMessage(e.target.value)}
-            value={send.msg}
+            value={send.msg }
           />
           <div className="msg-button -mb-2 flex items-center">
             <div className="relative inline-block group">
