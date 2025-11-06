@@ -1,23 +1,22 @@
 {
   "name": "pixel-talk",
   "version": "1.0.0",
-  "description": "",
+  "description": "A real-time chat app built with React, Express, and Socket.io",
   "license": "ISC",
   "author": "zenova",
   "type": "commonjs",
   "main": "backend/src/server.js",
   "scripts": {
-    "start": "concurrently \"npm run server\" \"vite\"",
+    "start": "concurrently \"npm run server\" \"npm run frontend\"",
     "server": "nodemon backend/src/server.js",
     "frontend": "vite --config frontend/vite.config.js",
-    "dev": "vite"
+    "dev": "concurrently \"npm run server\" \"npm run frontend\""
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
     "@tailwindcss/vite": "^4.1.16",
     "emoji-picker-react": "^4.15.0",
     "express": "^5.1.0",
-    "nodemon": "^3.1.10",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "socket.io": "^4.8.1",
@@ -34,6 +33,7 @@
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.22",
     "globals": "^16.4.0",
+    "nodemon": "^3.1.10",
     "vite": "^7.1.12"
   }
 }

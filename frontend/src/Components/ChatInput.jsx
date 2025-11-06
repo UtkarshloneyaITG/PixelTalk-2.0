@@ -1,19 +1,16 @@
 import { useRef, useState } from "react";
 import { useMsgFunctions } from "../provider/msgContext";
-import Picker from 'emoji-picker-react';
+import EmojiPicker from "emoji-picker-react";
 import "../style/chatPage.css";
 import logo_of_img from "../assets/svg/image-square-svgrepo-com.svg";
 function ChatInput() {
   const fileinput = useRef();
   const { send, setsend, sendMessage, image, setimage } = useMsgFunctions();
+  const [message, setMessage] = useState("");
   const [showPicker, setShowPicker] = useState(false);
-  const msgInput = useRef();
 
   const onEmojiClick = (emojiData) => {
-    setsend((prevSend) => ({
-      ...prevSend,
-      msg: (prevSend.msg || "") + emojiData.emoji, // append emoji
-    }));
+    setMessage((prev) => prev + emojiData.emoji);
     setShowPicker(false);
   };
 
@@ -22,10 +19,13 @@ function ChatInput() {
     <>
       <div className="flex">
         {showPicker && (
-          <Picker
-            onEmojiClick={onEmojiClick}
-            style={{ width: "100%" }}
-          />
+          <div style={{ position: "absolute", bottom: "40px", right: "0" }}>
+            <EmojiPicker theme="dark"
+              lazyLoadEmojis={true}
+              searchDisabled={false}
+              previewConfig={{ showPreview: false }}
+              onEmojiClick={onEmojiClick} />
+          </div>
         )}
         <div
           className=" msg-box text-white rounded-3xl flex  justify-center items-center image_icon cursor-pointer"
@@ -61,9 +61,8 @@ function ChatInput() {
           <div className="emoji flex items-center">
             <button
               className="emoji-btn cursor-pointer"
-              onClick={() => setShowPicker((prev) => !prev)}
+              onClick={() => setShowPicker(!showPicker)}
             >
-
               <svg width="35px" height="35px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <g id="🔍-Product-Icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                   <g id="ic_fluent_emoji_add_24_regular" fill="#919191" fill-rule="nonzero">
@@ -81,9 +80,8 @@ function ChatInput() {
             onInput={(e) => {
               setsend({ msg: e.target.value, userID: "parth", image: image });
             }}
-            onChange={(e) => setInputStr(e.target.value)}
+            onChange={(e) => setMessage(e.target.value)}
             value={send.msg}
-            ref={msgInput}
           />
           <div className="msg-button -mb-2 flex items-center">
             <div className="relative inline-block group">
