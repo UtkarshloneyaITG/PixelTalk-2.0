@@ -5,7 +5,15 @@ const messageOBJECT = require("../model/chat.model");
 const chatJSON = path.join("C:/Users/Itgeeks/Desktop/ChatData/chat.json");
 const messageController = async (socket, io, msg) => {
   try {
-    const MSG = new messageOBJECT(msg.msg, msg.userID);
+    let imageDataUrl = null;
+    if (msg.image) {
+      const mimeType = msg.imageType || "image/png"; // store type in msg.imageType
+      imageDataUrl = `data:${mimeType};base64,${Buffer.from(msg.image).toString(
+        "base64"
+      )}`;
+    }
+
+    const MSG = new messageOBJECT(msg.msg, msg.userID, imageDataUrl);
 
     await io.emit("chat-message", MSG);
 

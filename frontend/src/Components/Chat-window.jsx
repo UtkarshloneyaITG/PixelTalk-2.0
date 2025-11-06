@@ -1,11 +1,12 @@
 import SendTo from "./ChatSendTo";
 import SendBy from "./ChatSendBy";
 import ChatInput from "./ChatInput";
-import { useRef, useState } from "react";
-import { useEffect } from "react";
+import { useRef, useState, useEffect } from "react";
 import { socket } from "../services/socket";
 import ChatAppHeader from "./ChatAppHeader";
 import { useMsgFunctions } from "../provider/msgContext";
+import pixel_talk from "../assets/svg/Pixel Talk(full).png";
+import ChatCanvas from "./ChatCanvas";
 
 function ChatWindow() {
   const [messages, setMessages] = useState([]);
@@ -13,7 +14,20 @@ function ChatWindow() {
 
   useEffect(() => {
     chatLogs.current?.lastElementChild?.scrollIntoView();
+    if (
+      document.hidden &&
+      Notification.permission === "granted" &&
+      messages[messages.length - 1].userID != "Gamith"
+    ) {
+      new Notification("New Message", {
+        body: `${messages[messages.length - 1].userID}: ${
+          messages[messages.length - 1].msg
+        }`,
+        icon: pixel_talk, // optional, use your app icon
+      });
+    }
   }, [messages]);
+
   useEffect(() => {
     const handleMessage = (msg) => {
       // Ignore messages already in list (simple duplicate prevention)
@@ -26,11 +40,9 @@ function ChatWindow() {
         return [...prev, msg];
       });
     };
-
     socket.on("chat-message", handleMessage);
     return () => socket.off("chat-message", handleMessage);
   }, []);
-
   return (
     <>
       <div className=" relative flex flex-col flex-1 px-10 pb-5 chat-window justify-end ">
@@ -41,12 +53,13 @@ function ChatWindow() {
             ref={chatLogs}
           >
             {messages.map((value, index) => {
-              return value.userID == 99 ? (
+              return value.userID != "parth" ? (
                 <SendBy
                   text={value.msg}
                   date={value.date}
                   time={value.time}
                   name={value.userID}
+                  image={value.image}
                   key={index}
                 />
               ) : (
@@ -54,6 +67,7 @@ function ChatWindow() {
                   text={value.msg}
                   date={value.date}
                   time={value.time}
+                  image={value.image}
                   key={index}
                 />
               );
@@ -62,6 +76,7 @@ function ChatWindow() {
         </div>
         {/* {Chat Input} */}
         <ChatInput />
+        <ChatCanvas />
       </div>
     </>
   );
