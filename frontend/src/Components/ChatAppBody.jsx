@@ -11,6 +11,7 @@ function ChatAppBody() {
     <div className={`flex flex-1 absolute chat-body w-full h-full`} style={{ backgroundImage: `url(${selectedTheme})` }}>
       <ChatListPanel />
       <ChatWindow />
+      {/* <ChatCanvas /> */}
     </div>
   );
 }

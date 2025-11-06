@@ -1,13 +1,11 @@
 import SendTo from "./ChatSendTo";
 import SendBy from "./ChatSendBy";
 import ChatInput from "./ChatInput";
-import { useRef, useState , useEffect} from "react";
+import { useRef, useState, useEffect } from "react";
 import { socket } from "../services/socket";
 import ChatAppHeader from "./ChatAppHeader";
 import { useMsgFunctions } from "../provider/msgContext";
 import pixel_talk from "../assets/svg/Pixel Talk(full).png";
-
-
 
 function ChatWindow() {
   const { send, sendMessage } = useMsgFunctions();
@@ -23,7 +21,7 @@ function ChatWindow() {
     if (
       document.hidden &&
       Notification.permission === "granted" &&
-      messages[messages.length - 1].userID != "parth"
+      messages[messages.length - 1].userID != "Gamith"
     ) {
       new Notification("New Message", {
         body: `${messages[messages.length - 1].userID}: ${
