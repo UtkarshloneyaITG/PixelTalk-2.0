@@ -41,7 +41,6 @@
 }
 
 .chat-body {
-    background-image: url('../assets/theme/theme3.jpg');
     background-size: cover;
     background-position: left center;
     background-repeat: no-repeat;
@@ -100,16 +99,6 @@
     position: relative;
     height: 550px;
     overflow-y: auto;
-    /* mask-image: linear-gradient(to bottom,
-            rgb(0, 0, 0) 0%,  
-            rgb(0, 0, 0) 80%,  
-            rgba(0, 0, 0, 0) 100%  
-    );
-    -webkit-mask-image: linear-gradient(to bottom,
-            rgb(0, 0, 0) 0%,
-            rgb(0, 0, 0) 80%,
-            rgba(0, 0, 0, 0.466) 100%
-    ); */
 }
 
 /* Optional: smooth fade-in animation for new messages */
@@ -142,6 +131,8 @@
     overflow-wrap: break-word;
     white-space: normal;
     box-sizing: border-box;
+    font-family: sans-serif;
+
 }
 
 .ChatSendTo-- {
@@ -152,6 +143,7 @@
     animation: ChatSendTo-tranformation 0.4s ease-out;
     background-color: var(--color-blue-500);
     font-size: 18px;
+    font-family: sans-serif;
 }
 
 .profile-image {
