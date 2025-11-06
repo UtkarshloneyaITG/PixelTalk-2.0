@@ -9,7 +9,7 @@
   "scripts": {
     "start": "concurrently \"npm run server\" \"npm run frontend\"",
     "server": "nodemon backend/src/server.js",
-    "frontend": "vite --config frontend/vite.config.js",
+    "frontend": "vite --config vite.config.js",
     "dev": "concurrently \"npm run server\" \"npm run frontend\""
   },
   "dependencies": {
