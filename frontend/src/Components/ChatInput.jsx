@@ -38,13 +38,13 @@ function ChatInput() {
           </svg>
         )}
       </div>
-      <div className=" md:w-[80%] sm:w-[100%] self-center msg-box text-white rounded-3xl flex pl-5  justify-center items-center">
+      <div className=" md:w-[80%] sm:w-[100%] self-center msg-box text-white rounded-3xl flex pl-5  justify-center items-center z-10">
         <input
           type="text"
           placeholder="Message"
           className="msg-input"
           onInput={(e) => {
-            setsend({ msg: e.target.value, userID: "parth", image: image });
+            setsend({ msg: e.target.value, userID: "Gamith", image: image });
           }}
           value={send.msg}
         />
@@ -152,7 +152,7 @@ function ChatInput() {
         className="h-0 w-0"
         onChange={(e) => {
           setimage(e.target.files[0]);
-          setsend({ msg: "", userID: "parth", image: e.target.files[0] });
+          setsend({ msg: "", userID: "Gamith", image: e.target.files[0] });
         }}
       />
     </>
