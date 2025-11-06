@@ -97,6 +97,10 @@ function ChatCanvas() {
     };
   }, [refresh]);
 
+  const ColorPlateToggle = ()=>{
+
+  }
+
   return (
     <div>
       <canvas
@@ -104,8 +108,13 @@ function ChatCanvas() {
         style={{ border: "2px solid black" }}
         className="fixed left-[28%] z-[2]"
       ></canvas>
-      <div className="color-plate">
-        <div className="Primery-colors flex gap-2 bg-[#fff5] rounded-2xl backdrop-blur-md rounded-xl p-4 m-2">
+      <div className="color-plate flex bg-[#27272a73] backdrop-blur-md  px-4 rounded-3xl py-2 items-center">
+        <div className="open-btn">
+          <button className="text-2xl colorPlate-btn">
+            ⟨
+          </button>
+        </div>
+        <div className="Primery-colors flex gap-2 bg-zinc-800 px-2 py-2 rounded-2xl m-1 items-center">
           {PRIMERY_COLOR.map((color) => {
             return (
               <div
@@ -115,6 +124,7 @@ function ChatCanvas() {
                   height: "25px",
                   borderRadius: "100px",
                   border: `${color == iscolor ? "2px solid white" : ""}`,
+                  cursor: "pointer"
                 }}
                 onClick={(e) => {
                   // e.target.style.border = "2px solid black";
@@ -125,7 +135,7 @@ function ChatCanvas() {
             );
           })}
         </div>
-        <div className="secondaryColor grid grid-cols-5 gap-2 max-h-60 bg-[#0005] rounded-2xl backdrop-blur-md rounded-xl p-4 m-2 ">
+        {/* <div className="secondaryColor grid grid-cols-5 gap-2  bg-[#80808055]  backdrop-blur-md rounded-xl p-2 m-2">
           {isSec.map((color) => {
             return (
               <div
@@ -135,6 +145,7 @@ function ChatCanvas() {
                   height: "25px",
                   borderRadius: "100px",
                   border: `${color == iscolor ? "2px solid white" : ""}`,
+                  cursor: "pointer"
                 }}
                 onChange={(e) => {
                   // e.target.style.border = "2px solid black";
@@ -145,7 +156,7 @@ function ChatCanvas() {
             );
           })}
           <div
-            className="AddColor text-center w-[25px] h-[25px] rounded-4xl bg-[#0005] flex items-center justify-center"
+            className="AddColor text-center w-[25px] h-[25px] rounded-4xl bg-[#0005] flex items-center justify-center cursor-pointer"
             onClick={(e) => {
               colorPlate.current.click();
             }}
@@ -196,12 +207,12 @@ function ChatCanvas() {
             }}
             className="w-0 h-0 opacity-0 absolute"
           />
-        </div>
+        </div> */}
         <button
           onClick={() => {
             clearCanvas();
           }}
-          className="Canvas-button w-full bg-[#0005] rounded-2xl backdrop-blur-md rounded-xl p-2 m-2"
+          className="Canvas-button w-full h-full py-2 px-3 bg-[#0005]  backdrop-blur-md rounded-2xl cursor-pointer ml-2"
         >
           Clear
         </button>

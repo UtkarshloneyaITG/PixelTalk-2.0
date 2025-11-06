@@ -6,6 +6,7 @@ import { socket } from "../services/socket";
 import ChatAppHeader from "./ChatAppHeader";
 import { useMsgFunctions } from "../provider/msgContext";
 import pixel_talk from "../assets/svg/Pixel Talk(full).png";
+import ChatCanvas from "./ChatCanvas";
 
 function ChatWindow() {
   const { send, sendMessage } = useMsgFunctions();
@@ -80,6 +81,7 @@ function ChatWindow() {
         </div>
         {/* {Chat Input} */}
         <ChatInput />
+        <ChatCanvas />
       </div>
     </>
   );
