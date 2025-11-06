@@ -12,6 +12,7 @@ import theme9 from "../assets/theme/theme9.jpg";
 const MsgContext = createContext();
 
 export const MsgContextProvider = ({ children }) => {
+  const [opneCanvas, setOpenCanvas] = useState(false);
   const [image, setimage] = useState(null);
   const [send, setsend] = useState({ msg: "", userID: "2", image: null });
   const [isThemeOpen, setIsThemeOpen] = useState(false);

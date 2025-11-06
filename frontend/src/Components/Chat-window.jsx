@@ -9,6 +9,7 @@ import pixel_talk from "../assets/svg/Pixel Talk(full).png";
 import ChatCanvas from "./ChatCanvas";
 
 function ChatWindow() {
+  const { opneCanvas } = useMsgFunctions();
   const [messages, setMessages] = useState([]);
   const chatLogs = useRef(null);
 
@@ -17,7 +18,7 @@ function ChatWindow() {
     if (
       document.hidden &&
       Notification.permission === "granted" &&
-      messages[messages.length - 1].userID != "parth"
+      messages[messages.length - 1].userID != "Gamith"
     ) {
       new Notification("New Message", {
         body: `${messages[messages.length - 1].userID}: ${
@@ -53,7 +54,7 @@ function ChatWindow() {
             ref={chatLogs}
           >
             {messages.map((value, index) => {
-              return value.userID != "parth" ? (
+              return value.userID != "Gamith" ? (
                 <SendBy
                   text={value.msg}
                   date={value.date}
@@ -76,7 +77,7 @@ function ChatWindow() {
         </div>
         {/* {Chat Input} */}
         <ChatInput />
-        <ChatCanvas />
+        {/* { <ChatCanvas className={`${opneCanvas ? "block" : "hidden"}`} />} */}
       </div>
     </>
   );
