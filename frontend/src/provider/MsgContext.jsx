@@ -23,6 +23,7 @@ export const MsgContextProvider = ({ children }) => {
       setimage(null);
       setsend({ msg: "", userID: "", image: null });
     }
+    // console.log(send)
   };
 
   useEffect(() => {
@@ -47,7 +48,6 @@ export const MsgContextProvider = ({ children }) => {
     theme2, theme3, theme4, theme5, theme6, theme7, theme8, theme9
   ];
 
-  console.log("hello theme 2")
 
   const handleApply = () => {
     localStorage.setItem("theme", selectedTheme);

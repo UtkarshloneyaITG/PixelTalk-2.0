@@ -57,7 +57,7 @@
 
 .chat-list {
     /* background-color: var(--color-zinc-950); */
-    width: 27%;
+    min-width: 27%;
     padding: 15px 15px;
 }
 
@@ -76,10 +76,6 @@
     font-family: var(--font-title);
 }
 
-.sub-text {
-    font-size: 16px;
-    padding-left: 3px;
-}
 
 .add-btn {
     background-color: var(--color-zinc-800);
@@ -202,4 +198,12 @@
 
 .in-btn{
     box-shadow: 0px 0px 3px 1px black;
+}
+
+.emoji-box{
+    position: absolute;
+    bottom: 107px;
+    z-index: 60;
+    border-radius: 10px;
+    box-shadow: 0px 0px 6px 3px rgba(0, 0, 0, 0.671);
 }
