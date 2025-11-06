@@ -11,7 +11,6 @@ const App = () => {
       <MsgContextProvider>
         <ChatApp />
       </MsgContextProvider>
-      {/* <ChatPage /> */}
     </>
   );
 };

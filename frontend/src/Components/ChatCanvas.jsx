@@ -124,6 +124,10 @@ function ChatCanvas({ className = "" }) {
 
   const PRIMERY_COLOR = ["black", "red", "blue", "green", "yellow", "white"];
 
+  const ColorPlateToggle = ()=>{
+
+  }
+
   return (
     <div className={`absolute right-0 ${className}`}>
       <canvas ref={canvasRef}></canvas>

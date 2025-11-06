@@ -16,9 +16,7 @@ export const MsgContextProvider = ({ children }) => {
   const [image, setimage] = useState(null);
   const [send, setsend] = useState({ msg: "", userID: "2", image: null });
   const [isThemeOpen, setIsThemeOpen] = useState(false);
-  const [selectedTheme, setSelectedTheme] = useState(
-    localStorage.getItem("theme") || null
-  );
+  const [selectedTheme, setSelectedTheme] = useState(localStorage.getItem("theme") || null);
   const sendMessage = () => {
     if (send.msg.trim() !== "" || image != null) {
       socket.emit("chat-message", send);
@@ -29,6 +27,7 @@ export const MsgContextProvider = ({ children }) => {
 
   useEffect(() => {
     const handleKeyDown = (e) => {
+
       if (e.key === "Enter") {
         if (send.msg.trim() !== "" || image != null) {
           sendMessage();
@@ -45,17 +44,10 @@ export const MsgContextProvider = ({ children }) => {
   }, [send]);
 
   const themes = [
-    theme2,
-    theme3,
-    theme4,
-    theme5,
-    theme6,
-    theme7,
-    theme8,
-    theme9,
+    theme2, theme3, theme4, theme5, theme6, theme7, theme8, theme9
   ];
 
-  console.log("hello theme 2");
+  console.log("hello theme 2")
 
   const handleApply = () => {
     localStorage.setItem("theme", selectedTheme);
@@ -72,30 +64,19 @@ export const MsgContextProvider = ({ children }) => {
     } else {
       console.warn("⚠️ No theme selected or .chat-body not found!");
     }
+
   };
 
   const handleCancel = () => {
-    setIsThemeOpen(false);
+    setIsThemeOpen(false)
   };
+
+
+
 
   return (
     <MsgContext.Provider
-      value={{
-        opneCanvas,
-        setOpenCanvas,
-        send,
-        setSelectedTheme,
-        selectedTheme,
-        setsend,
-        sendMessage,
-        image,
-        setimage,
-        themes,
-        handleApply,
-        handleCancel,
-        isThemeOpen,
-        setIsThemeOpen,
-      }}
+      value={{ send, setSelectedTheme, selectedTheme, setsend, sendMessage, image, setimage, themes, handleApply, handleCancel, isThemeOpen, setIsThemeOpen }}
     >
       {children}
     </MsgContext.Provider>
