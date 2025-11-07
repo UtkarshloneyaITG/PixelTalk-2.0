@@ -4,19 +4,19 @@ import "../style/drawing.css";
 
 function ChatCanvas({ className = "" }) {
   const [isColor, setIsColor] = useState("black");
-  const [lineWidth, setLineWidth] = useState(1);
+  const [lineWidth, setLineWidth] = useState(2);
   const [secondaryColors, setSecondaryColors] = useState([]);
 
   const canvasRef = useRef(null);
   const ctxRef = useRef(null);
   const colorPickerRef = useRef(null);
-  const colorPlateToggleRef = useRef(null);
   const lineWidthInputRef = useRef(null);
   const colorPlatePanelRef = useRef(null);
 
-  // --- refs to keep latest state in events ---
+  // Keep latest values for use in event listeners
   const colorRef = useRef(isColor);
   const lineWidthRef = useRef(lineWidth);
+  const drawingRef = useRef(false); // ✅ fix for auto drawing
 
   useEffect(() => {
     colorRef.current = isColor;
@@ -39,28 +39,32 @@ function ChatCanvas({ className = "" }) {
     resizeCanvas();
     window.addEventListener("resize", resizeCanvas);
 
-    let drawing = false;
-
     const startDraw = (x, y) => {
+      const ctx = ctxRef.current;
       ctx.beginPath();
       ctx.moveTo(x, y);
       socket.emit("start", { x, y });
     };
 
     const draw = (x, y, color, width) => {
+      const ctx = ctxRef.current;
       ctx.lineTo(x, y);
       ctx.strokeStyle = color;
       ctx.lineWidth = width;
+      ctx.lineCap = "round";
+      ctx.lineJoin = "round";
       ctx.stroke();
+      ctx.beginPath(); // ✅ prevents connecting old paths
+      ctx.moveTo(x, y);
     };
 
     const handleMouseDown = (e) => {
-      drawing = true;
+      drawingRef.current = true;
       startDraw(e.offsetX, e.offsetY);
     };
 
     const handleMouseMove = (e) => {
-      if (!drawing) return;
+      if (!drawingRef.current) return;
       const pos = {
         x: e.offsetX,
         y: e.offsetY,
@@ -71,7 +75,10 @@ function ChatCanvas({ className = "" }) {
       socket.emit("draw", pos);
     };
 
-    const stopDraw = () => (drawing = false);
+    const stopDraw = () => {
+      drawingRef.current = false;
+      ctxRef.current.beginPath(); // ✅ ensures smooth new path after lift
+    };
 
     canvas.addEventListener("mousedown", handleMouseDown);
     canvas.addEventListener("mousemove", handleMouseMove);
@@ -82,7 +89,9 @@ function ChatCanvas({ className = "" }) {
     socket.on("draw", ({ x, y, color, linewidth }) =>
       draw(x, y, color, linewidth)
     );
-    socket.on("clear", () => ctx.clearRect(0, 0, canvas.width, canvas.height));
+    socket.on("clear", () =>
+      ctx.clearRect(0, 0, canvas.width, canvas.height)
+    );
 
     return () => {
       window.removeEventListener("resize", resizeCanvas);
@@ -96,6 +105,7 @@ function ChatCanvas({ className = "" }) {
     };
   }, []);
 
+  // ---- Utility ----
   const clearCanvas = () => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
@@ -124,10 +134,6 @@ function ChatCanvas({ className = "" }) {
 
   const PRIMERY_COLOR = ["black", "red", "blue", "green", "yellow", "white"];
 
-  const ColorPlateToggle = ()=>{
-
-  }
-
   return (
     <div className={`absolute right-0 ${className}`}>
       <canvas ref={canvasRef}></canvas>
@@ -136,6 +142,7 @@ function ChatCanvas({ className = "" }) {
         className="flex bg-[#27272a73] backdrop-blur-md px-4 rounded-3xl py-2 items-center absolute bottom-[90px] left-[50%] -translate-x-[50%] transition-all"
         ref={colorPlatePanelRef}
       >
+        {/* Toggle Button */}
         <div className="open-btn">
           <button
             className="text-2xl colorPlate-btn"
@@ -145,6 +152,7 @@ function ChatCanvas({ className = "" }) {
           </button>
         </div>
 
+        {/* Secondary Colors */}
         <div className="secondaryColor flex bg-[#80808055] backdrop-blur-md rounded-xl p-2 m-2 w-fit">
           <div className="flex gap-2 w-full justify-end pr-2">
             {secondaryColors.map((color) => (
@@ -197,6 +205,7 @@ function ChatCanvas({ className = "" }) {
           />
         </div>
 
+        {/* Primary Colors */}
         <div className="Primery-colors flex gap-2 bg-zinc-800 px-2 py-2 rounded-2xl m-1 items-center">
           {PRIMERY_COLOR.map((color) => (
             <div
@@ -214,6 +223,7 @@ function ChatCanvas({ className = "" }) {
           ))}
         </div>
 
+        {/* Line Width Slider */}
         <div
           className="w-40 h-10 p-2 bg-[#0005] absolute top-[-50px] right-[30px] rounded-2xl backdrop-blur-2xl"
           ref={lineWidthInputRef}
@@ -228,6 +238,7 @@ function ChatCanvas({ className = "" }) {
           />
         </div>
 
+        {/* Toggle Brush Size Button */}
         <button
           onClick={() => {
             lineWidthInputRef.current.style.display =
@@ -256,6 +267,7 @@ function ChatCanvas({ className = "" }) {
           </svg>
         </button>
 
+        {/* Set Color */}
         <button
           className="w-25 Canvas-button bg-[#0005] rounded-2xl backdrop-blur-md p-2 m-2"
           onClick={handleAddSecondaryColor}
@@ -263,6 +275,7 @@ function ChatCanvas({ className = "" }) {
           Set color
         </button>
 
+        {/* Clear Canvas */}
         <button
           className="Canvas-button w-25 h-full py-2 px-3 bg-[#0005] backdrop-blur-md rounded-2xl cursor-pointer ml-2"
           onClick={clearCanvas}

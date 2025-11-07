@@ -8,7 +8,7 @@ import gsap from "gsap";
 function ChatInput() {
   const fileinput = useRef();
 
-  const { send, setsend, sendMessage, image, setimage, setOpenCanvas } =
+  const { send, setsend, sendMessage, image, setimage ,setOpenCanvas} =
     useMsgFunctions();
   const [showPicker, setShowPicker] = useState(false);
   const emojiBoxRef = useRef();
@@ -137,7 +137,9 @@ function ChatInput() {
           />
           <div className="msg-button -mb-2 flex items-center">
             <div className="relative inline-block group">
-              <button className="cnavas-btn cursor-pointer pb-2">
+              <button className="cnavas-btn cursor-pointer pb-2" onClick={()=>{
+                setOpenCanvas(pre => !pre)
+              }}>
                 <svg
                   width="30px"
                   height="30px"

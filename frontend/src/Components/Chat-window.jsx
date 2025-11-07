@@ -77,7 +77,7 @@ function ChatWindow() {
         </div>
         {/* {Chat Input} */}
         <ChatInput />
-        {/* { <ChatCanvas className={`${opneCanvas ? "block" : "hidden"}`} />} */}
+        <ChatCanvas className={`${opneCanvas ? "block" : "hidden"}`} />
       </div>
     </>
   );
