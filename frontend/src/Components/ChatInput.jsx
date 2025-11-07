@@ -17,7 +17,7 @@ function ChatInput() {
     setsend((prev) => ({
       ...prev,
       msg: (prev.msg += emojiData.emoji),
-      userID: "Gamith",
+      userID: "parth",
     }));
     setShowPicker(false);
   };
@@ -131,7 +131,7 @@ function ChatInput() {
             placeholder="Message"
             className="msg-input pl-4"
             onInput={(e) => {
-              setsend({ msg: e.target.value, userID: "Gamith", image: image });
+              setsend({ msg: e.target.value, userID: "parth", image: image });
             }}
             value={send.msg}
           />
@@ -245,7 +245,7 @@ function ChatInput() {
           className="h-0 w-0"
           onChange={(e) => {
             setimage(e.target.files[0]);
-            setsend({ msg: "", userID: "Gamith", image: e.target.files[0] });
+            setsend({ msg: "", userID: "parth", image: e.target.files[0] });
           }}
         />
       </div>

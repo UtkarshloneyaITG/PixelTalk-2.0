@@ -180,7 +180,7 @@ function Sidebar({ isOpen, closeSidebar }) {
       <>
         <aside
           ref={sidebarRef}
-          className="fixed top-0 right-0 w-80 h-screen bg-zinc-900/80 backdrop-blur-lg p-6 flex flex-col gap-6 transform translate-x-full z-50 shadow-[0_0_30px_rgba(0,0,0,0.6)] rounded-l-3xl border-l border-zinc-800"
+          className="fixed top-0 z-51 right-0 w-80 h-screen bg-zinc-900/80 backdrop-blur-lg p-6 flex flex-col gap-6 transform translate-x-full z-50 shadow-[0_0_30px_rgba(0,0,0,0.6)] rounded-l-3xl border-l border-zinc-800"
         >
           {/* Close button */}
           <button
