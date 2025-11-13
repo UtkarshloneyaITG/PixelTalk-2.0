@@ -1,5 +1,6 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import ChatAppBody from "./Components/ChatAppBody";
+import SignUp from "./Pages/SignUp";
 
 function ChatApp() {
   useEffect(() => {
@@ -7,6 +8,7 @@ function ChatApp() {
       Notification.requestPermission();
     }
   }, []);
+
   return (
     <>
       <div className="bg-slate-900 text-white flex flex-col h-screen font-[Poppins]">

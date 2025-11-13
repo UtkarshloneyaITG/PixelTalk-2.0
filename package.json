@@ -15,8 +15,10 @@
   "dependencies": {
     "@gsap/react": "^2.1.2",
     "@tailwindcss/vite": "^4.1.16",
+    "dotenv": "^17.2.3",
     "emoji-picker-react": "^4.15.0",
     "express": "^5.1.0",
+    "mongoose": "^8.19.3",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "socket.io": "^4.8.1",

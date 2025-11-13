@@ -1,27 +1,21 @@
-let datefor = () => {
-  let date = new Date();
-  return `${date.getFullYear()}-${String(date.getMonth()).padStart(
-    2,
-    0
-  )}-${String(date.getDate()).padStart(2, 0)}`;
-};
+const mongoose = require("mongoose");
 
-let timeform = () => {
-  let time = new Date();
-  return `${time.getHours()}:${String(time.getMinutes()).padStart(
-    2,
-    0
-  )}:${String(time.getSeconds()).padStart(2, 0)}`;
-};
+const messageSchema = new mongoose.Schema(
+  {
+    msg: {
+      type: String,
+    },
+    userID: {
+      type: String,
+      required: true,
+    },
+    image: {
+      type: String,
+    },
+  },
+  { timestamps: true } // automatically adds createdAt & updatedAt
+);
 
-class messageOBJECT {
-  constructor(msg, userID, image) {
-    this.msg = msg;
-    this.date = datefor();
-    this.time = timeform();
-    this.userID = userID;
-    this.image = image;
-  }
-}
+const MSG_ = mongoose.model("messages", messageSchema);
 
-module.exports = messageOBJECT;
+module.exports = MSG_;
