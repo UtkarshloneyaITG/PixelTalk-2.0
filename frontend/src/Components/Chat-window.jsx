@@ -7,11 +7,16 @@ import ChatAppHeader from "./ChatAppHeader";
 import { useMsgFunctions } from "../provider/msgContext";
 import pixel_talk from "../assets/svg/Pixel Talk(full).png";
 import ChatCanvas from "./ChatCanvas";
+import getLocation from "../services/UserLocation";
 
 function ChatWindow() {
   const { opneCanvas } = useMsgFunctions();
   const [messages, setMessages] = useState([]);
   const chatLogs = useRef(null);
+
+  // useEffect(()=>{
+  //   getLocation();
+  // })
 
   useEffect(() => {
     chatLogs.current?.lastElementChild?.scrollIntoView();
@@ -77,7 +82,7 @@ function ChatWindow() {
         </div>
         {/* {Chat Input} */}
         <ChatInput />
-        {/* { <ChatCanvas className={`${opneCanvas ? "block" : "hidden"}`} />} */}
+        <ChatCanvas className={`${opneCanvas ? "block" : "hidden"}`} />
       </div>
     </>
   );
