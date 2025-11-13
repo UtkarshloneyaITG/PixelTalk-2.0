@@ -58,6 +58,7 @@ function ChatAppHeader() {
 
   return (
     <>
+    
       <div className="flex items-center justify-between px-5 z-20">
         <div className="profile flex items-center">
           <div className="profile-image w-10 h-10 bg-gray-500 rounded-full z-20"></div>

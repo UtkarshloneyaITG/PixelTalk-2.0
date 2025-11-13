@@ -35,7 +35,9 @@ function ChatWindow() {
       setMessages((prev) => {
         const exists = prev.some(
           (m) =>
-            m.msg === msg.msg && m.time === msg.time && m.userID === msg.userID
+            m.msg === msg.msg &&
+            m.createdAt === msg.createdAt &&
+            m.userID === msg.userID
         );
         if (exists) return prev;
         return [...prev, msg];

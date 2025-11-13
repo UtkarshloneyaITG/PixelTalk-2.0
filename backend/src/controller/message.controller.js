@@ -1,8 +1,5 @@
-const fs = require("fs");
-const path = require("path");
-const messageOBJECT = require("../model/chat.model");
+const MSG_ = require("../model/chat.model");
 
-const chatJSON = path.join("C:/Users/Itgeeks/Desktop/ChatData/chat.json");
 const messageController = async (socket, io, msg) => {
   try {
     let imageDataUrl = null;
@@ -13,22 +10,23 @@ const messageController = async (socket, io, msg) => {
       )}`;
     }
 
-    const MSG = new messageOBJECT(msg.msg, msg.userID, imageDataUrl);
+    const newMsg = new MSG_({
+      msg: msg.msg,
+      userID: msg.userID,
+      image: imageDataUrl,
+    });
+    const count = await MSG_.countDocuments();
 
-    await io.emit("chat-message", MSG);
-
-    let fileData = [];
-
-    if (fs.existsSync(chatJSON)) {
-      const jsonData = fs.readFileSync(chatJSON, "utf-8");
-      fileData = JSON.parse(jsonData);
+    // If more than 100, delete the oldest
+    if (count > 100) {
+      await MSG_.findOneAndDelete({}, { sort: { createdAt: 1 } });
     }
 
-    fileData.push(MSG);
+    await newMsg.save();
 
-    fs.writeFileSync(chatJSON, JSON.stringify(fileData, null, 2), "utf-8");
+    io.emit("chat-message", newMsg); // broadcast to all connected clients
   } catch (error) {
-    console.log(error);
+    console.error("Error in messageController:", error);
   }
 };
 

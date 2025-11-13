@@ -5,6 +5,10 @@ import { useRef, useState, useEffect } from "react";
 function SendBy({ text, date, time, name, image }) {
   const el = useRef(null);
   const [isFullScreen, setIsFullScreen] = useState(false);
+  const [menuVisible, setMenuVisible] = useState(false);
+  const [menuPos, setMenuPos] = useState({ x: 0, y: 0 });
+  const [selectedMessage, setSelectedMessage] = useState(null);
+  const menuRef = useRef(null);
 
   useGSAP(() => {
     const animate = () => {
@@ -64,6 +68,48 @@ function SendBy({ text, date, time, name, image }) {
     window.addEventListener("keydown", handleEsc);
     return () => window.removeEventListener("keydown", handleEsc);
   }, []);
+  // --- Close menu when clicking outside ---
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (menuRef.current && !menuRef.current.contains(e.target)) {
+        setMenuVisible(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  // --- Right click handler ---
+  let message_TO_perform_action = null;
+  const handleRightClick = (e) => {
+    setSelectedMessage(e.target.innerHTML);
+    e.preventDefault();
+    e.stopPropagation();
+    setMenuPos({ x: e.clientX, y: e.clientY });
+    setMenuVisible(true);
+  };
+  const handleMenuClick = (action) => {
+    console.log(`You clicked ${action}`);
+    if (action == "Copy") {
+
+      navigator.clipboard.writeText(selectedMessage);
+    }
+    setMenuVisible(false);
+  };
+  // check if message is link or not
+
+  function isLink(text) {
+    const urlPattern = new RegExp(
+      "^(https?:\\/\\/)?" + // protocol
+        "((([a-z\\d]([a-z\\d-]*[a-z\\d])*).)+[a-z]{2,}|" + // domain name
+        "((\\d{1,3}\\.){3}\\d{1,3}))" + // OR ip (v4) address
+        "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // port and path
+        "(\\?[;&a-z\\d%_.~+=-]*)?" + // query string
+        "(\\#[-a-z\\d_]*)?$",
+      "i"
+    );
+    return !!urlPattern.test(text);
+  }
 
   return (
     <>
@@ -78,6 +124,7 @@ function SendBy({ text, date, time, name, image }) {
           fontSize: "16px",
           transformOrigin: "bottom left",
         }}
+        onContextMenu={handleRightClick}
       >
         {/* Image display (click to open fullscreen) */}
         {image && (
@@ -93,9 +140,35 @@ function SendBy({ text, date, time, name, image }) {
             onClick={() => setIsFullScreen(true)}
           />
         )}
-        {text}
+        {isLink(text) ? (
+          <a href={text} target="_blank">
+            {text}
+          </a>
+        ) : (
+          text
+        )}
       </div>
-
+      {menuVisible && (
+        <ul
+          ref={menuRef}
+          className="fixed z-[9999] bg-[#2b2b2b] text-white rounded-xl py-1 shadow-lg min-w-[150px]"
+          style={{
+            top: `${menuPos.y}px`,
+            left: `${menuPos.x}px`,
+          }}
+          onClick={(e) => e.stopPropagation()} // prevent closing when clicking menu
+        >
+          {["Reply", "Edit", "Copy", "Delete"].map((item) => (
+            <li
+              key={item}
+              className="px-4 py-2 hover:bg-[#444] cursor-pointer select-none"
+              onClick={() => handleMenuClick(item)}
+            >
+              {item}
+            </li>
+          ))}
+        </ul>
+      )}
       {/* Full-screen view (keeps your message style untouched) */}
       {isFullScreen && (
         <div

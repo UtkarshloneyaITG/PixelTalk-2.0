@@ -4,28 +4,23 @@ const {
   clearController,
 } = require("../controller/draw.controller");
 const { messageController } = require("../controller/message.controller");
-const fs = require("fs");
-const path = require("path");
-
-const chatJSON = path.join("C:/Users/Itgeeks/Desktop/ChatData/chat.json");
-const drawJSON = path.join("C:/Users/Itgeeks/Desktop/ChatData/draw.json");
+const MSG_ = require("../model/chat.model");
 
 const handleSocketConnection = async (socket, io) => {
   console.log("A user connected:", socket.id);
-  const chatData = JSON.parse(fs.readFileSync(chatJSON, "utf-8"));
-  const drawData = JSON.parse(fs.readFileSync(drawJSON, "utf-8"));
+  const chatData = await MSG_.find();
   chatData.forEach((msg) => {
     io.emit("chat-message", msg);
   });
-  drawData.forEach((item) => {
-    io.emit(item.event, item.data);
-  });
-  socket.on("draw", (data) => {
-    drawController(socket, io, data);
-  });
-  socket.on("start", (data) => {
-    startController(socket, io, data);
-  });
+  // drawData.forEach((item) => {
+  //   io.emit(item.event, item.data);
+  // });
+  // socket.on("draw", (data) => {
+  //   drawController(socket, io, data);
+  // });
+  // socket.on("start", (data) => {
+  //   startController(socket, io, data);
+  // });
   socket.on("disconnect", () => {
     console.log("user disconnected", socket.id);
   });

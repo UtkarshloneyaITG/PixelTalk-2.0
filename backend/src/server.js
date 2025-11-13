@@ -3,7 +3,8 @@ const http = require("http");
 const { Server } = require("socket.io");
 const handleSocketConnection = require("./socket/socket");
 const cors = require("cors");
-
+const connectdb = require("./config/db");
+connectdb();
 const app = express();
 const server = http.createServer(app);
 
@@ -19,7 +20,7 @@ io.on("connection", (socket) => {
   socket.on("disconnect", () => console.log("🔴 Disconnected:", socket.id));
 });
 
-const PORT =  5000;
+const PORT = 5000;
 server.listen(PORT, () =>
   console.log(`✅ Server running on http://localhost:${PORT}`)
 );
